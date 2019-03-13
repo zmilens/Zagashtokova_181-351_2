@@ -1,30 +1,70 @@
+#include <iostream>
 #include "lab1.h"
+#include "managerwin.h"
 #include <QMessageBox>
-bool autorize(QString login, QString password)
-{
-	return login == "admin" && password == "123";
-}
+#include <QIODevice>
+#include <QFile>
+using namespace std;
+
 lab1::lab1(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 }
-void lab1::On_pushButton_autorize_clicked() 
+int autorize(QString login, QString password)
+{	
+	QFile info("info.txt"); //объект, содержащий файл, в котором хранятся логины и пароли
+	QString str; //строчка в файле
+	if (info.open(QIODevice::ReadOnly)) {
+		while (!info.atEnd()) {
+			str = info.readLine(); //считывает строку с файла и записывает в str
+			if (str.contains(login) && str.contains(password)) { //contains проверяет наличие в этой строчки логина и пароля
+				if (login == "admin") {
+					info.close();
+					return 1;
+				}
+				else if (str.contains("permission2")) {
+					info.close();
+					return 2;
+				}
+				else if (str.contains("permission3")) {
+					info.close();
+					return 3;
+				}
+			}
+		}
+	}
+	return 0;
+}
+void lab1::on_autorize_clicked()
 {
 	//Считываем lineEdits
 	QString login = ui.lineEdit_login->text();
 	QString password = ui.lineEdit_password->text();
 	QMessageBox msgBox;
-	if (autorize(login, password)) 
-	{
-		QMessageBox msgBox;
-		msgBox.setText("login is correct.");
-		msgBox.exec();
+
+	if (autorize(login, password) == 1) {
+
+		msgBox.setText("admin access");
+	
+	}
+	else if (autorize(login, password) == 2) {
+
+		msgBox.setText("manager access");
+
+	}
+	else if (autorize(login, password) == 3) {
+
+		msgBox.setText("client access");
+		managerwin winm;
+		winm.setModal(true);
+		winm.exec();
+
 	}
 	else
 	{
 		QMessageBox msgBox;
-		msgBox.setText("login isn't correct.");
+		msgBox.setText("Login is incorrect.");
 		msgBox.setInformativeText("Do you want to try again?");
 		msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
 		msgBox.setDefaultButton(QMessageBox::Save);
@@ -34,5 +74,7 @@ void lab1::On_pushButton_autorize_clicked()
 	{
 		close();
 	}
-};
+}
+
+
 	

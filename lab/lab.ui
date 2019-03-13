@@ -1,38 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>lab1Class</class>
- <widget class="QMainWindow" name="lab1Class">
+ <class>labClass</class>
+ <widget class="QMainWindow" name="labClass">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
-    <height>316</height>
+    <width>600</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>lab1</string>
+   <string>lab</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">rgb(255, 255, 255)</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>40</y>
-      <width>301</width>
-      <height>181</height>
+      <x>70</x>
+      <y>80</y>
+      <width>331</width>
+      <height>171</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
           <widget class="QLabel" name="label_login">
            <property name="font">
             <font>
-             <family>Sitka Display</family>
+             <family>Nirmala UI</family>
              <pointsize>16</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -49,12 +52,12 @@
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QLabel" name="label_password">
            <property name="font">
             <font>
-             <family>Sitka Display</family>
+             <family>Nirmala UI</family>
              <pointsize>16</pointsize>
              <weight>75</weight>
              <bold>true</bold>
@@ -66,19 +69,19 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit_password"/>
+          <widget class="QLineEdit" name="lineEdit_2"/>
          </item>
         </layout>
        </item>
       </layout>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_autorize">
+      <widget class="QPushButton" name="pushButton">
        <property name="font">
         <font>
-         <family>Sitka Banner</family>
-         <pointsize>19</pointsize>
+         <pointsize>16</pointsize>
          <weight>75</weight>
+         <italic>false</italic>
          <bold>true</bold>
         </font>
        </property>
@@ -95,24 +98,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>457</width>
+     <width>600</width>
      <height>18</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menufile">
-    <property name="title">
-     <string>file</string>
-    </property>
-    <addaction name="actionclose"/>
-   </widget>
-   <widget class="QMenu" name="menuhelp">
-    <property name="title">
-     <string>help</string>
-    </property>
-    <addaction name="actionAbout"/>
-   </widget>
-   <addaction name="menufile"/>
-   <addaction name="menuhelp"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -123,20 +112,10 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionclose">
-   <property name="text">
-    <string>close</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="lab1.qrc"/>
+  <include location="lab.qrc"/>
  </resources>
  <connections/>
 </ui>

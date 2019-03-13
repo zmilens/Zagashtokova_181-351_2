@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_lab1.h"
+#include "managerwin.h"
 
 class lab1 : public QMainWindow
 {
@@ -13,6 +14,5 @@ public:
 private:
 	Ui::lab1Class ui;
 private slots: 
-	void On_pushButton_autorize_clicked();
-
+	void on_autorize_clicked();
 };

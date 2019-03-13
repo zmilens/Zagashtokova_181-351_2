@@ -1,16 +1,16 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'lab1.h'
+** Meta object code from reading C++ file 'lab.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.12.1)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../lab1.h"
+#include "../../lab.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'lab1.h' doesn't include <QObject>."
+#error "The header file 'lab.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.12.1. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -20,27 +20,27 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_lab1_t {
+struct qt_meta_stringdata_lab_t {
     QByteArrayData data[3];
-    char stringdata0[26];
+    char stringdata0[36];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_lab1_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_lab_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_lab1_t qt_meta_stringdata_lab1 = {
+static const qt_meta_stringdata_lab_t qt_meta_stringdata_lab = {
     {
-QT_MOC_LITERAL(0, 0, 4), // "lab1"
-QT_MOC_LITERAL(1, 5, 19), // "on_autorize_clicked"
-QT_MOC_LITERAL(2, 25, 0) // ""
+QT_MOC_LITERAL(0, 0, 3), // "lab"
+QT_MOC_LITERAL(1, 4, 30), // "On_pushButton_autorize_clicked"
+QT_MOC_LITERAL(2, 35, 0) // ""
 
     },
-    "lab1\0on_autorize_clicked\0"
+    "lab\0On_pushButton_autorize_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_lab1[] = {
+static const uint qt_meta_data_lab[] = {
 
  // content:
        8,       // revision
@@ -62,43 +62,43 @@ static const uint qt_meta_data_lab1[] = {
        0        // eod
 };
 
-void lab1::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void lab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<lab1 *>(_o);
+        auto *_t = static_cast<lab *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_autorize_clicked(); break;
+        case 0: _t->On_pushButton_autorize_clicked(); break;
         default: ;
         }
     }
     Q_UNUSED(_a);
 }
 
-QT_INIT_METAOBJECT const QMetaObject lab1::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject lab::staticMetaObject = { {
     &QMainWindow::staticMetaObject,
-    qt_meta_stringdata_lab1.data,
-    qt_meta_data_lab1,
+    qt_meta_stringdata_lab.data,
+    qt_meta_data_lab,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *lab1::metaObject() const
+const QMetaObject *lab::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *lab1::qt_metacast(const char *_clname)
+void *lab::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_lab1.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_lab.stringdata0))
         return static_cast<void*>(this);
     return QMainWindow::qt_metacast(_clname);
 }
 
-int lab1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int lab::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)

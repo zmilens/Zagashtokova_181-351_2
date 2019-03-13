@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -20,6 +21,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -30,11 +32,16 @@ public:
     QAction *actionAbout;
     QAction *actionclose;
     QWidget *centralWidget;
-    QPushButton *pushButton_autorize;
-    QLineEdit *lineEdit_login;
-    QLineEdit *lineEdit_password;
+    QWidget *layoutWidget;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *label_login;
+    QLineEdit *lineEdit_login;
+    QHBoxLayout *horizontalLayout;
     QLabel *label_password;
+    QLineEdit *lineEdit_password;
+    QPushButton *pushButton_autorize;
     QMenuBar *menuBar;
     QMenu *menufile;
     QMenu *menuhelp;
@@ -45,37 +52,81 @@ public:
     {
         if (lab1Class->objectName().isEmpty())
             lab1Class->setObjectName(QString::fromUtf8("lab1Class"));
-        lab1Class->resize(601, 400);
+        lab1Class->resize(457, 316);
         actionAbout = new QAction(lab1Class);
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         actionclose = new QAction(lab1Class);
         actionclose->setObjectName(QString::fromUtf8("actionclose"));
         centralWidget = new QWidget(lab1Class);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        pushButton_autorize = new QPushButton(centralWidget);
-        pushButton_autorize->setObjectName(QString::fromUtf8("pushButton_autorize"));
-        pushButton_autorize->setGeometry(QRect(190, 220, 91, 31));
+        layoutWidget = new QWidget(centralWidget);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(80, 40, 301, 181));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label_login = new QLabel(layoutWidget);
+        label_login->setObjectName(QString::fromUtf8("label_login"));
         QFont font;
+        font.setFamily(QString::fromUtf8("Sitka Display"));
         font.setPointSize(16);
         font.setBold(true);
         font.setWeight(75);
-        pushButton_autorize->setFont(font);
-        lineEdit_login = new QLineEdit(centralWidget);
+        label_login->setFont(font);
+
+        horizontalLayout_2->addWidget(label_login);
+
+        lineEdit_login = new QLineEdit(layoutWidget);
         lineEdit_login->setObjectName(QString::fromUtf8("lineEdit_login"));
-        lineEdit_login->setGeometry(QRect(240, 80, 113, 20));
-        lineEdit_password = new QLineEdit(centralWidget);
-        lineEdit_password->setObjectName(QString::fromUtf8("lineEdit_password"));
-        lineEdit_password->setGeometry(QRect(240, 130, 113, 20));
-        label_login = new QLabel(centralWidget);
-        label_login->setObjectName(QString::fromUtf8("label_login"));
-        label_login->setGeometry(QRect(100, 80, 35, 20));
-        label_password = new QLabel(centralWidget);
+
+        horizontalLayout_2->addWidget(lineEdit_login);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        label_password = new QLabel(layoutWidget);
         label_password->setObjectName(QString::fromUtf8("label_password"));
-        label_password->setGeometry(QRect(100, 130, 71, 21));
+        label_password->setFont(font);
+
+        horizontalLayout->addWidget(label_password);
+
+        lineEdit_password = new QLineEdit(layoutWidget);
+        lineEdit_password->setObjectName(QString::fromUtf8("lineEdit_password"));
+
+        horizontalLayout->addWidget(lineEdit_password);
+
+
+        verticalLayout->addLayout(horizontalLayout);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+        pushButton_autorize = new QPushButton(layoutWidget);
+        pushButton_autorize->setObjectName(QString::fromUtf8("pushButton_autorize"));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Sitka Banner"));
+        font1.setPointSize(19);
+        font1.setBold(true);
+        font1.setWeight(75);
+        pushButton_autorize->setFont(font1);
+
+        verticalLayout_2->addWidget(pushButton_autorize);
+
         lab1Class->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(lab1Class);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 601, 18));
+        menuBar->setGeometry(QRect(0, 0, 457, 18));
         menufile = new QMenu(menuBar);
         menufile->setObjectName(QString::fromUtf8("menufile"));
         menuhelp = new QMenu(menuBar);
@@ -94,7 +145,6 @@ public:
         menuhelp->addAction(actionAbout);
 
         retranslateUi(lab1Class);
-        QObject::connect(actionclose, SIGNAL(triggered()), lab1Class, SLOT(close()));
 
         QMetaObject::connectSlotsByName(lab1Class);
     } // setupUi
@@ -104,9 +154,9 @@ public:
         lab1Class->setWindowTitle(QApplication::translate("lab1Class", "lab1", nullptr));
         actionAbout->setText(QApplication::translate("lab1Class", "About", nullptr));
         actionclose->setText(QApplication::translate("lab1Class", "close", nullptr));
-        pushButton_autorize->setText(QApplication::translate("lab1Class", "LOGIN", nullptr));
-        label_login->setText(QApplication::translate("lab1Class", "LOGIN:", nullptr));
-        label_password->setText(QApplication::translate("lab1Class", "PASSWORD:", nullptr));
+        label_login->setText(QApplication::translate("lab1Class", "Login:", nullptr));
+        label_password->setText(QApplication::translate("lab1Class", "Password:", nullptr));
+        pushButton_autorize->setText(QApplication::translate("lab1Class", "LOG IN", nullptr));
         menufile->setTitle(QApplication::translate("lab1Class", "file", nullptr));
         menuhelp->setTitle(QApplication::translate("lab1Class", "help", nullptr));
     } // retranslateUi
