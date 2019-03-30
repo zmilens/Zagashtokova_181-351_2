@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include <string>
 #include <vector>
 
@@ -64,10 +64,12 @@ public:
 	bool write2file();
 
 private:
-	vector<data> *db;
+	vector <data> *db;
 	FILE* fin;
 
 protected:
 
 
-}
+}*/
+
+

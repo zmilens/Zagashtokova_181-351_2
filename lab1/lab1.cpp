@@ -1,6 +1,7 @@
 #include <iostream>
 #include "lab1.h"
 #include "managerwin.h"
+#include "prosmotr.h"
 #include <QMessageBox>
 #include <QIODevice>
 #include <QFile>
@@ -10,6 +11,9 @@ lab1::lab1(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	manwin = new managerwin();
+	cliwin = new clientwin();
+	proscli= new prosmotr;
 }
 int autorize(QString login, QString password)
 {	
@@ -36,7 +40,7 @@ int autorize(QString login, QString password)
 	}
 	return 0;
 }
-void lab1::on_autorize_clicked()
+void lab1::on_pushButton_autorize_clicked()
 {
 	//—читываем lineEdits
 	QString login = ui.lineEdit_login->text();
@@ -46,34 +50,35 @@ void lab1::on_autorize_clicked()
 	if (autorize(login, password) == 1) {
 
 		msgBox.setText("admin access");
+		msgBox.exec();
+		int res = msgBox.exec();
+		if (res == QMessageBox::Close)
+		{
+			close();
+		}
 	
 	}
 	else if (autorize(login, password) == 2) {
-
-		msgBox.setText("manager access");
-
+		
+		manwin->show();
 	}
 	else if (autorize(login, password) == 3) {
 
-		msgBox.setText("client access");
-		managerwin winm;
-		winm.setModal(true);
-		winm.exec();
-
+		proscli->show();
 	}
 	else
 	{
-		QMessageBox msgBox;
 		msgBox.setText("Login is incorrect.");
 		msgBox.setInformativeText("Do you want to try again?");
 		msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
-		msgBox.setDefaultButton(QMessageBox::Save);
+		msgBox.setDefaultButton(QMessageBox::Retry);
+		int res = msgBox.exec();
+		if (res == QMessageBox::Close)
+		{
+			close();
+		}
 	}
-	int res = msgBox.exec();
-	if (res == QMessageBox::Close)
-	{
-		close();
-	}
+	
 }
 
 

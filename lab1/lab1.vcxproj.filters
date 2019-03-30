@@ -42,6 +42,15 @@
     <ClCompile Include="managerwin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="clientwin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="redact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="prosmotr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="lab1.h">
@@ -50,12 +59,30 @@
     <QtMoc Include="managerwin.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="clientwin.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="redact.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="prosmotr.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="lab1.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="managerwin.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="clientwin.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="redact.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="prosmotr.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

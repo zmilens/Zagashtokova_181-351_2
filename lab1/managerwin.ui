@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>managerwin</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -56,7 +56,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushredact">
         <property name="font">
          <font>
           <family>Sitka Small</family>

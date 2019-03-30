@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_lab1_t {
     QByteArrayData data[3];
-    char stringdata0[26];
+    char stringdata0[37];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,11 +32,12 @@ struct qt_meta_stringdata_lab1_t {
 static const qt_meta_stringdata_lab1_t qt_meta_stringdata_lab1 = {
     {
 QT_MOC_LITERAL(0, 0, 4), // "lab1"
-QT_MOC_LITERAL(1, 5, 19), // "on_autorize_clicked"
-QT_MOC_LITERAL(2, 25, 0) // ""
+QT_MOC_LITERAL(1, 5, 30), // "on_pushButton_autorize_clicked"
+QT_MOC_LITERAL(2, 36, 0) // ""
 
     },
-    "lab1\0on_autorize_clicked\0"
+    "lab1\0on_pushButton_autorize_clicked\0"
+    ""
 };
 #undef QT_MOC_LITERAL
 
@@ -68,7 +69,7 @@ void lab1::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         auto *_t = static_cast<lab1 *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->on_autorize_clicked(); break;
+        case 0: _t->on_pushButton_autorize_clicked(); break;
         default: ;
         }
     }

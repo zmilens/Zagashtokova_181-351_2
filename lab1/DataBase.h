@@ -1,68 +1,49 @@
-/*#pragma once
-#include <iostream>
-#include <string>
-#include <vector>
-using namespace std;
+#ifndef DATABASE_H 
+#define DATABASE_H 
+#include <string> 
+#include <vector> 
+#include <QFile> 
 
-std::string FileName = "DataBase.txt";
+
+
 
 struct data {
-	std::string fio;
-	std::string tel;
-	std::string date;
+	std::string topic; //тема
+	std::string author; //автор
+	std::string article; //статья
+	std::string magazine; //журнал
 };
 
-bool checkFio(std::string fio) {};//Используемые символы - только буквы; Если регистр не тот, меняем на правильный.
-bool checkTel(std::string tel) {};//длина строки 10 символов, все из которых цифры;
-bool checkDate(std::string date) {};//тип данных Date
+bool check(std::string topic);
+bool check(std::string author);
+bool check(std::string article);
+bool check(std::string magazine);
 
 class DataBase {
 
 public:
-	DataBase();//конструктор
-	DataBase(std::string* tempDB); //конструктор по строке: т.е. по строке, в которой записана БД, формируем БД
-	~DataBase();//деструктор
-	bool add_data(data tempData) {};// добавить строку данных в БД
-	bool open(std::string filename) {};//открываем файл
-	bool download(std::string & res) {};//загружаем данные из файла в строку
-	bool close() {};// закрытие файла
+	std::vector<data> db;
+	DataBase();//конструктор 
+	DataBase(std::string* tempDB); //конструктор по строке: т.е. по строке, в которой записана БД, формируем БД 
+	~DataBase();//деструктор* 
+	bool add_data(data tempData);// добавить строку данных в БД 
+	bool open(QFile file);//открываем файл 
+	bool download(std::string & res);//загружаем данные из файла в строку 
+	bool close();// закрытие файла 
+	void download();
+	data parsing(std::string line);
+	void transformStr2BD(std::string bd);// преобразует строку в БД 
 
-	data parsing(std::string line) {};
-	bool transformStr2BD(std::string strFromFile)// преобразует строку в БД
-	{
-		//Цикл по входной строке
-		std::string line;//взять перфую запись из файла
-		//line = ...
-		data tempData;
-		tempData = parsing(line);
-		add_data(tempData);
-	}
-
-
-	bool download()//загружаем данные из файла в строку
-	{
-		std::string strFromFile;
-		open(FileName);
-		download(strFromFile);
-		close();
-		transformStr2BD(strFromFile);
-	}
-
-	bool del_data(std::string id) {};//удалить запись с заданным id
+	bool del_data(int id);//удалить запись с заданным id 
 
 	template<typename T>
-	vector<data> find(int criterior, T data2find);//удалить запись с заданным id
+	std::vector<data> find(int criterior, T data2find);//удалить запись с заданным id 
 
-	bool change(std::string id, data tempData)
-	{
-		//db[id] = tempData;
-	}
 
 	bool write2file();
 
 private:
-	vector<data> *db;
-	FILE* fin;
+	std::string db_string;
 };
 
-*/
+#endif 
