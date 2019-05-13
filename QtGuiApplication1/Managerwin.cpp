@@ -40,12 +40,12 @@ Managerwin::Managerwin(QWidget *parent)
 
 }
 
-void Managerwin::sendServer(QString com) {
+/*void Managerwin::sendServer(QString com) {
 	QByteArray array;
 	array.append(com);
 	s->write(array);
 }
-
+*/
 /*void Managerwin:: pushButton_delete_clicked() {
 	QString d = ui.lineEdit_fd->text();
 	if (d != "") {
@@ -53,7 +53,7 @@ void Managerwin::sendServer(QString com) {
 	}
 }*/
 
-void Managerwin:: pushButton_add_clicked() {
+/*void Managerwin:: pushButton_add_clicked() {
 	data s;
 	QString t = ui.lineEdit_topic->text();
 	QString n = ui.lineEdit_author->text();
@@ -69,7 +69,39 @@ void Managerwin:: pushButton_add_clicked() {
 		msgBox.setText("record is added to database");
 	}
 
+}*/
+
+void Managerwin::pushButton_find_clicked() {
+	QStandardItem *item;
+	QString t = ui.lineEdit_fd->text();
+	model = new QStandardItemModel(0, 4, this);
+	ui.tableView->setModel(model);
+	model->setHeaderData(0, Qt::Horizontal, "Topic");
+	model->setHeaderData(1, Qt::Horizontal, "Author");
+	model->setHeaderData(2, Qt::Horizontal, "Article");
+	model->setHeaderData(3, Qt::Horizontal, "Magazine");
+	DataBase base;
+	base.download();
+	base.finding(t.toStdString());
+	for (int i = 0; i < base.db.size(); i++)
+	{
+		item = new QStandardItem(QString::fromStdString(base.db[i].topic));
+		model->setItem(i, 0, item);
+
+		item = new QStandardItem(QString::fromStdString(base.db[i].author));
+		model->setItem(i, 1, item);
+
+		item = new QStandardItem(QString::fromStdString(base.db[i].article));
+		model->setItem(i, 2, item);
+
+		item = new QStandardItem(QString::fromStdString(base.db[i].magazine));
+		model->setItem(i, 3, item);
+	}
+
+
 }
+
+
 Managerwin::~Managerwin()
 {
 }

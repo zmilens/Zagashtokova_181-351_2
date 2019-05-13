@@ -19,7 +19,7 @@ struct data {
 	std::string access;
 };
 
-QString autorize(QString login, QString password);
+
 bool checkTopic(std::string topic);
 bool checkAuthor(std::string author);
 bool checkArticle(std::string article);
@@ -49,8 +49,9 @@ public:
 	void downloadlogpas(std::string & res);
 	void downloadlogpas();
 	void transformStr2BDlogpas(std::string bd);
-	void findinglogpas(std::string find);
+	void findinglogpas(std::string finder);
 	bool write2file();
+	void data2();
 
 private:
 	std::string bd;

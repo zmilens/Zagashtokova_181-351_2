@@ -12,6 +12,8 @@ DataBase::DataBase()
 {
 
 }
+
+
 bool checkTopic(std::string topic) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
@@ -92,7 +94,7 @@ void DataBase::download(std::string & res)
 		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
 		"magazine VARCHAR(15) NOT NULL)");
 	query.prepare("INSERT INTO Database(topic, author, article, magazine) VALUES(:topic, :author, :article, :magazine)");
-	query.bindValue(":topic", "Fasion");
+	query.bindValue(":topic", "Fashion");
 	query.bindValue(":author", "Milena");
 	query.bindValue(":article", "Karl Lagerfeld");
 	query.bindValue(":magazine", "Vogue");

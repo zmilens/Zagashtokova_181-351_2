@@ -17,9 +17,9 @@ public:
 	~Managerwin();
 	void sendServer(QString com);
 private slots:
-	void pushButton_add_clicked();
-	void pushButton_delete_clicked();
-	//void pushButton_find_clicked();
+	//void pushButton_add_clicked();
+	//void pushButton_delete_clicked();
+	void pushButton_find_clicked();
 	//void pushButton_update_clicked();
 private:
 	Ui::Managerwin ui;
