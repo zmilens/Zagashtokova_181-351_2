@@ -2,6 +2,7 @@
 #include "redact.h"
 #include "prosmotr.h"
 
+
 managerwin::managerwin(QWidget *parent)
 	: QDialog(parent)
 {
@@ -25,5 +26,13 @@ void managerwin:: on_pushprosmotr_clicked() {
 	pros = new prosmotr();
 	pros->show();
 
-};
+}
+
+void managerwin:: on_pushfind_cliked() {
+	this->close();
+	fin = new finder();
+	fin->show();
+	
+}
+
 

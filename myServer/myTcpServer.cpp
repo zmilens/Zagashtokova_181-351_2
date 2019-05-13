@@ -1,5 +1,6 @@
 
 #include "myTcpServer.h"
+#include <QDebug>
 
 myTcpServer::myTcpServer(QObject *parent)
 	: QObject(parent)
@@ -26,38 +27,38 @@ void myTcpServer::slotNewConnection()
 {
 	if (server_status == 1) 
 	{
-		mTcpSocket = mTcpServer->nextPendingConnection();
-
-		mTcpSocket->write("hello!\r\n");
-
-		connect(mTcpSocket, &QTcpSocket::readyRead, this, &	myTcpServer::slotServerRead);
-
-		connect(mTcpSocket, &QTcpSocket::disconnected, this, &myTcpServer::slotClientDisconnected);
+		//QTcpSocket * clientSocket = mTcpServer->nextPendingConnection();
+		//mTcpSocket->write("hello!\r\n");
+		QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); //подтверждение соединения, возвращает сокет
+		int idclien = clientSocket->socketDescriptor();
+		SClients[idclien] = clientSocket;
+		connect(SClients[idclien], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
+		connect(SClients[idclien], SIGNAL(disconected()), this, SLOT(slotClientDisconnected()));
 	}
 }
 
+void myTcpServer::slotSendClient(QString com) {
+	QObject *obj = QObject::sender();
+	QTcpSocket *sock = static_cast<QTcpSocket *>(obj);
+	QByteArray array;
+	array.append(com);
 
-void myTcpServer::slotServerRead() {
-	QByteArray;
-	while (mTcpSocket->bytesAvailable() > 0)
-	{
-		QByteArray array = mTcpSocket->readAll();
-		char str = *array.data();
-		str += 1;
-		mTcpSocket->write(QByteArray::fromStdString((std::string)&str));
-	}
-	
+	sock->write(array);
 }
+
+void myTcpServer::slotReadClient()
+{
+	QTcpSocket* clientSocket = (QTcpSocket*)sender();
+	int idclien = clientSocket->socketDescriptor();
+	QTextStream os(clientSocket);
+	qDebug() << os.readAll();	
+}
+
 void myTcpServer::slotClientDisconnected() {
 
-	if (server_status == 1) {
-		
-		mTcpSocket->close();
-		mTcpServer->close();
-
-		qDebug() << QString::fromUtf8("сервер остановлен");
-		
-		server_status = 0;
-	}
+	QTcpSocket* clientSocket = (QTcpSocket*)sender();
+	int idclien = clientSocket->socketDescriptor();
+	SClients[idclien]->close();
+	qDebug() << QString::fromUtf8("сервер остановлен");
 }
 

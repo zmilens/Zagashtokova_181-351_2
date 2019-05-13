@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>redact</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -25,28 +25,6 @@
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QLabel" name="label">
-          <property name="font">
-           <font>
-            <family>Sitka Small</family>
-            <pointsize>12</pointsize>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Автор:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit_4"/>
-        </item>
-       </layout>
-      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -65,7 +43,29 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_2"/>
+         <widget class="QLineEdit" name="lineTopic"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>Sitka Small</family>
+            <pointsize>12</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Автор:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineAuthor"/>
         </item>
        </layout>
       </item>
@@ -87,7 +87,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3"/>
+         <widget class="QLineEdit" name="lineArticle"/>
         </item>
        </layout>
       </item>
@@ -109,7 +109,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="lineMag"/>
         </item>
        </layout>
       </item>
@@ -118,7 +118,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushAdd">
         <property name="font">
          <font>
           <family>Sitka Small</family>
@@ -133,7 +133,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushDel">
         <property name="font">
          <font>
           <family>Sitka Small</family>

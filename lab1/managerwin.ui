@@ -16,10 +16,10 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>80</y>
-     <width>281</width>
-     <height>171</height>
+     <x>20</x>
+     <y>60</y>
+     <width>351</width>
+     <height>201</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -67,6 +67,21 @@
         </property>
         <property name="text">
          <string>Редактировать</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushfind">
+        <property name="font">
+         <font>
+          <family>Sitka Small</family>
+          <pointsize>16</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Найти</string>
         </property>
        </widget>
       </item>

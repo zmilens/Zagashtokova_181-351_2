@@ -4,7 +4,7 @@
 #include "prosmotr.h"
 #include <QMessageBox>
 #include <QIODevice>
-#include <QFile>
+
 using namespace std;
 
 lab1::lab1(QWidget *parent)
@@ -17,6 +17,12 @@ lab1::lab1(QWidget *parent)
 }
 int autorize(QString login, QString password)
 {	
+	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+	db.setDatabaseName("Test");
+	if (!db.open())
+		qDebug() << db.lastError().text();
+	else
+		qDebug() << "open";
 	QFile info("info.txt"); //объект, содержащий файл, в котором хранятся логины и пароли
 	QString str; //строчка в файле
 	if (info.open(QIODevice::ReadOnly)) {

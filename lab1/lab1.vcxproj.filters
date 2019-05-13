@@ -51,6 +51,9 @@
     <ClCompile Include="prosmotr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="find.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="lab1.h">
@@ -62,10 +65,13 @@
     <QtMoc Include="clientwin.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="redact.h">
+    <QtMoc Include="prosmotr.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="prosmotr.h">
+    <QtMoc Include="find.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="redact.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -85,6 +91,9 @@
     <QtUic Include="prosmotr.ui">
       <Filter>Form Files</Filter>
     </QtUic>
+    <QtUic Include="find.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="lab1.qrc">
@@ -92,10 +101,10 @@
     </QtRcc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DateBase1.h">
+    <ClInclude Include="DataBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DataBase.h">
+    <ClInclude Include="..\..\..\..\Downloads\mytcpserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

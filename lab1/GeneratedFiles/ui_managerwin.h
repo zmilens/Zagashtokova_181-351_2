@@ -29,6 +29,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pushprosmotr;
     QPushButton *pushredact;
+    QPushButton *pushfind;
 
     void setupUi(QDialog *managerwin)
     {
@@ -37,7 +38,7 @@ public:
         managerwin->resize(400, 300);
         layoutWidget = new QWidget(managerwin);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(60, 80, 281, 171));
+        layoutWidget->setGeometry(QRect(20, 60, 351, 201));
         verticalLayout = new QVBoxLayout(layoutWidget);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -74,6 +75,12 @@ public:
 
         horizontalLayout->addWidget(pushredact);
 
+        pushfind = new QPushButton(layoutWidget);
+        pushfind->setObjectName(QString::fromUtf8("pushfind"));
+        pushfind->setFont(font1);
+
+        horizontalLayout->addWidget(pushfind);
+
 
         verticalLayout->addLayout(horizontalLayout);
 
@@ -89,6 +96,7 @@ public:
         label->setText(QApplication::translate("managerwin", "Manager access", nullptr));
         pushprosmotr->setText(QApplication::translate("managerwin", "\320\237\321\200\320\276\321\201\320\274\320\276\321\202\321\200", nullptr));
         pushredact->setText(QApplication::translate("managerwin", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", nullptr));
+        pushfind->setText(QApplication::translate("managerwin", "\320\235\320\260\320\271\321\202\320\270", nullptr));
     } // retranslateUi
 
 };

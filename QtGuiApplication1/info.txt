@@ -1,0 +1,3 @@
+admin 123
+permission2 manager 456
+permission3 client 789

@@ -4,6 +4,7 @@
 #include "ui_managerwin.h"
 #include "redact.h"
 #include "prosmotr.h"
+#include "find.h"
 
 class managerwin : public QDialog
 {
@@ -17,9 +18,11 @@ public:
 private:
 	Ui::managerwin ui;
 	redact *red;
+	finder *fin;
 	prosmotr *pros;
-	
+
 private slots: 
 	void on_pushprosmotr_clicked();
 	void on_pushredact_clicked();
+	void on_pushfind_cliked();
 };

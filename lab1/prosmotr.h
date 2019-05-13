@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include "ui_prosmotr.h"
+#include <QStandardItemModel>
 
 class prosmotr : public QDialog
 {
@@ -13,4 +14,8 @@ public:
 
 private:
 	Ui::prosmotr ui;
+	QStandardItemModel *model;
+private slots:
+	void on_prosm_triggered();
+
 };

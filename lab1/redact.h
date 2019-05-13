@@ -14,4 +14,8 @@ public:
 private:
 	Ui::redact ui;
 
+private slots:
+	void addrecord();
+	//void del();
 };
+
