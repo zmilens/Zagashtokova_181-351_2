@@ -12,26 +12,94 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_Clientwin
 {
 public:
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
     QTableView *tableView;
+    QHBoxLayout *horizontalLayout;
+    QLineEdit *lineEdit_find;
+    QPushButton *pushButton_find;
+    QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *pushButton;
+    QSpacerItem *horizontalSpacer_2;
 
     void setupUi(QDialog *Clientwin)
     {
         if (Clientwin->objectName().isEmpty())
             Clientwin->setObjectName(QString::fromUtf8("Clientwin"));
-        Clientwin->resize(400, 300);
-        tableView = new QTableView(Clientwin);
+        Clientwin->resize(420, 391);
+        layoutWidget = new QWidget(Clientwin);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(11, 11, 391, 371));
+        gridLayout = new QGridLayout(layoutWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        tableView = new QTableView(layoutWidget);
         tableView->setObjectName(QString::fromUtf8("tableView"));
-        tableView->setGeometry(QRect(10, 10, 381, 281));
+
+        gridLayout->addWidget(tableView, 0, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        lineEdit_find = new QLineEdit(layoutWidget);
+        lineEdit_find->setObjectName(QString::fromUtf8("lineEdit_find"));
+
+        horizontalLayout->addWidget(lineEdit_find);
+
+        pushButton_find = new QPushButton(layoutWidget);
+        pushButton_find->setObjectName(QString::fromUtf8("pushButton_find"));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Sitka Banner"));
+        font.setPointSize(14);
+        font.setBold(true);
+        font.setWeight(75);
+        pushButton_find->setFont(font);
+
+        horizontalLayout->addWidget(pushButton_find);
+
+
+        gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer);
+
+        pushButton = new QPushButton(layoutWidget);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setFont(font);
+
+        horizontalLayout_2->addWidget(pushButton);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 2, 0, 1, 1);
+
 
         retranslateUi(Clientwin);
+        QObject::connect(lineEdit_find, SIGNAL(textEdited(QString)), pushButton_find, SLOT(click()));
 
         QMetaObject::connectSlotsByName(Clientwin);
     } // setupUi
@@ -39,6 +107,8 @@ public:
     void retranslateUi(QDialog *Clientwin)
     {
         Clientwin->setWindowTitle(QApplication::translate("Clientwin", "Clientwin", nullptr));
+        pushButton_find->setText(QApplication::translate("Clientwin", "\320\235\320\260\320\271\321\202\320\270", nullptr));
+        pushButton->setText(QApplication::translate("Clientwin", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
     } // retranslateUi
 
 };

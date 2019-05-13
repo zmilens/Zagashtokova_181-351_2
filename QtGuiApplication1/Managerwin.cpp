@@ -60,10 +60,10 @@ void Managerwin:: on_pushButton_add_clicked() {
 	if (!db.open())
 		qDebug() << db.lastError().text();
 
-	QString t = ui.lineEdit_topic->text();
-	QString n = ui.lineEdit_author->text();
-	QString a = ui.lineEdit_article->text();
-	QString m = ui.lineEdit_magazine->text();
+	QString top = ui.lineEdit_topic->text();
+	QString name = ui.lineEdit_author->text();
+	QString arc = ui.lineEdit_article->text();
+	QString mag = ui.lineEdit_magazine->text();
 	QSqlQuery query(db);
 	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
 		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
@@ -71,15 +71,15 @@ void Managerwin:: on_pushButton_add_clicked() {
 	query.exec("SELECT * FROM Database");
 	QMessageBox ms;
 	while (query.next())
-		if ((query.value(0).toString() == t.toLocal8Bit().constData()) && (query.value(1).toString() == n.toLocal8Bit().constData())
-			&& (query.value(2).toString() == a.toLocal8Bit().constData()) && (query.value(3).toString() == m.toLocal8Bit().constData()))
+		if ((query.value(0).toString() == top.toLocal8Bit().constData()) && (query.value(1).toString() == name.toLocal8Bit().constData())
+			&& (query.value(2).toString() == arc.toLocal8Bit().constData()) && (query.value(3).toString() == mag.toLocal8Bit().constData()))
 			ms.setText("This record is already in the database");
 				query.prepare("INSERT INTO Database(topic, author, article, magazine)"
 					"VALUES (:topic, :author, :article, :magazine");
-		query.bindValue(":topic", t);
-		query.bindValue(":author", n);
-		query.bindValue(":article", a);
-		query.bindValue(":magazine", m);
+		query.bindValue(":topic", top);
+		query.bindValue(":author", name);
+		query.bindValue(":article", arc);
+		query.bindValue(":magazine", mag);
 		
 		ms.setText("The record added to the database");
 }
@@ -110,9 +110,6 @@ void Managerwin::on_pushButton_find_clicked() {
 		item = new QStandardItem(QString::fromStdString(base.db[i].magazine));
 		model->setItem(i, 3, item);
 	}
-	qDebug() << t;
-
-
 }
 
 void Managerwin::on_pushButton_clicked() {
