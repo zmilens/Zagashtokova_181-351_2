@@ -15,12 +15,12 @@ class Managerwin : public QDialog
 public:
 	Managerwin(QWidget *parent = Q_NULLPTR);
 	~Managerwin();
-	void sendServer(QString com);
+	//void sendServer(QString com);
 private slots:
-	//void pushButton_add_clicked();
-	//void pushButton_delete_clicked();
-	void pushButton_find_clicked();
-	//void pushButton_update_clicked();
+	void on_pushButton_add_clicked();
+	//void on_pushButton_delete_clicked();
+	void on_pushButton_find_clicked();
+	//void on_pushButton_update_clicked();
 private:
 	Ui::Managerwin ui;
 	QTcpSocket * s;

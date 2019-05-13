@@ -7,6 +7,8 @@
 #include <QSqlRecord>
 #include <QDebug>
 #include <QVariant>
+#include "Managerwin.h"
+
 
 DataBase::DataBase()
 {
@@ -89,37 +91,10 @@ void DataBase::download(std::string & res)
 		qDebug() << "open";
 
 	QSqlQuery query(db);
-	query.exec("DROP TABLE Database");
 	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
 		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
 		"magazine VARCHAR(15) NOT NULL)");
-	query.prepare("INSERT INTO Database(topic, author, article, magazine) VALUES(:topic, :author, :article, :magazine)");
-	query.bindValue(":topic", "Fashion");
-	query.bindValue(":author", "Milena");
-	query.bindValue(":article", "Karl Lagerfeld");
-	query.bindValue(":magazine", "Vogue");
-	query.exec();
-
-	query.prepare("INSERT INTO Database(topic, author, article, magazine) VALUES(:topic, :author, :article, :magazine)");
-	query.bindValue(":topic", "Politic");
-	query.bindValue(":author", "Sema");
-	query.bindValue(":article", "Kremlin");
-	query.bindValue(":magazine", "Tass");
-	query.exec();
-
-	query.prepare("INSERT INTO Database(topic, author, article, magazine) VALUES(:topic, :author, :article, :magazine)");
-	query.bindValue(":topic", "Sport");
-	query.bindValue(":author", "Julia");
-	query.bindValue(":article", "Football");
-	query.bindValue(":magazine", "MatchTv");
-	query.exec();
-
-	query.prepare("INSERT INTO Database(topic, author, article, magazine) VALUES(:topic, :author, :article, :magazine)");
-	query.bindValue(":topic", "IT");
-	query.bindValue(":author", "Anastasia");
-	query.bindValue(":article", "Apple");
-	query.bindValue(":magazine", "Habr");
-	query.exec();
+	
 	query.exec("SELECT * FROM Database");
 	while (query.next()) {
 		res += query.value(0).toString().toStdString() + '\t' + query.value(1).toString().toStdString() + '\t' + query.value(2).toString().toStdString() + '\t' + query.value(3).toString().toStdString() + '\n';
@@ -278,10 +253,12 @@ void DataBase::finding(std::string finder)
 {
 	std::string f;
 	for (int i = 0; i < db.size(); i++) {
-		if (db[i].topic == finder || db[i].author == finder || db[i].article == finder || db[i].magazine == finder) {
+		if ((db[i].topic == finder || db[i].author == finder || db[i].article == finder || db[i].magazine == finder)) {
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
+	qDebug() << QString::fromStdString(f);
+	qDebug() << QString::fromStdString(finder);
 	db.clear();
 	transformStr2BD(f);
 }

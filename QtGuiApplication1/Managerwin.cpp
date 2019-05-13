@@ -6,6 +6,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
+#include <QMessageBox>
 
 
 Managerwin::Managerwin(QWidget *parent)
@@ -53,27 +54,40 @@ Managerwin::Managerwin(QWidget *parent)
 	}
 }*/
 
-/*void Managerwin:: pushButton_add_clicked() {
-	data s;
+void Managerwin:: on_pushButton_add_clicked() {
+	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+	db.setDatabaseName("Test");
+	if (!db.open())
+		qDebug() << db.lastError().text();
+
 	QString t = ui.lineEdit_topic->text();
 	QString n = ui.lineEdit_author->text();
 	QString a = ui.lineEdit_article->text();
 	QString m = ui.lineEdit_magazine->text();
-	s.topic = t.toStdString();
-	s.author = n.toStdString();
-	s.article = a.toStdString();
-	s.magazine = m.toStdString();
-	if (checkTopic(s.topic) && checkAuthor(s.author) && checkArticle(s.article) && checkMag(s.magazine)) {
-		sendServer(t + '\t' + n + '\t' + a + '\t' + m + '\n');
-		QMessageBox msgBox;
-		msgBox.setText("record is added to database");
+	QSqlQuery query(db);
+	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
+		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
+		"magazine VARCHAR(15) NOT NULL)");
+	query.exec("SELECT * FROM Database");
+	for (;;) {
+		while (query.next())
+			if ((query.value(0).toString() == t.toLocal8Bit().constData()) && (query.value(1).toString() == n.toLocal8Bit().constData())
+				&& (query.value(2).toString() == a.toLocal8Bit().constData()) && (query.value(3).toString() == t.toLocal8Bit().constData()))
+
+				query.prepare("INSERT INTO Database(topic, author, article, magazine)"
+					"VALUES (:topic, :author, :article, :magazine");
+		query.bindValue(":topic", t);
+		query.bindValue(":author", n);
+		query.bindValue(":article", a);
+		query.bindValue(":magazine", m);
+		QMessageBox ms;
+		ms.setText("Åhe record added to the database");
 	}
+}
 
-}*/
-
-void Managerwin::pushButton_find_clicked() {
+void Managerwin::on_pushButton_find_clicked() {
 	QStandardItem *item;
-	QString t = ui.lineEdit_fd->text();
+	QString t = ui.lineEdit_find->text();
 	model = new QStandardItemModel(0, 4, this);
 	ui.tableView->setModel(model);
 	model->setHeaderData(0, Qt::Horizontal, "Topic");
@@ -97,9 +111,12 @@ void Managerwin::pushButton_find_clicked() {
 		item = new QStandardItem(QString::fromStdString(base.db[i].magazine));
 		model->setItem(i, 3, item);
 	}
+	qDebug() << t;
 
 
 }
+
+
 
 
 Managerwin::~Managerwin()

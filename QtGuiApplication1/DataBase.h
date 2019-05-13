@@ -51,7 +51,6 @@ public:
 	void transformStr2BDlogpas(std::string bd);
 	void findinglogpas(std::string finder);
 	bool write2file();
-	void data2();
 
 private:
 	std::string bd;
