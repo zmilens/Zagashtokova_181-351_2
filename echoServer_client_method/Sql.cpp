@@ -51,7 +51,11 @@ int main(int argc, char *argv[])
 	
 	//добавляем запись в таблицу
 	//query.prepare("INSERT INTO User(login, password) VALUES(\"admin\", \"123\")");
-	
+	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
+	query.bindValue(":login", "admin");
+	query.bindValue(":password", "123");
+	query.bindValue(":access", "Admin");
+	query.exec();
 	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
 	query.bindValue(":login", "admin");
 	query.bindValue(":password", "123");

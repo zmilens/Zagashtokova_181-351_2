@@ -109,8 +109,14 @@ void DataBase::downloadlogpas(std::string & res) {
 	else
 		qDebug() << "open";
 	QSqlQuery query(db);
+	query.exec("DROP TABLE User");
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL,"
 		"access VARCHAR(10) NOT NULL)");
+	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
+	query.bindValue(":login", "  ");
+	query.bindValue(":password", "  ");
+	query.bindValue(":access", "  ");
+	query.exec();
 	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
 	query.bindValue(":login", "admin");
 	query.bindValue(":password", "123");
@@ -257,12 +263,23 @@ void DataBase::finding(std::string finder)
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
-	qDebug() << QString::fromStdString(f);
-	qDebug() << QString::fromStdString(finder);
+	
 	db.clear();
 	transformStr2BD(f);
 }
 
+void DataBase::findinglogpas(std::string finder)
+{
+	std::string f;
+	for (int i = 0; i < db1.size(); i++) {
+		if ((db1[i].log == finder || db1[i].pass == finder || db1[i].access == finder)) {
+			f += db1[i].log + '\t' + db1[i].pass + '\t' + db1[i].access + '\n';
+		}
+	}
+
+	db1.clear();
+	transformStr2BDlogpas(f);
+}
 /*bool DataBase::write2file()
 {
 

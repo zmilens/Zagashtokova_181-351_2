@@ -20,7 +20,7 @@ private slots:
 	void on_pushButton_add_clicked();
 	//void on_pushButton_delete_clicked();
 	void on_pushButton_find_clicked();
-	//void on_pushButton_update_clicked();
+	void on_pushButton_clicked();
 private:
 	Ui::Managerwin ui;
 	QTcpSocket * s;

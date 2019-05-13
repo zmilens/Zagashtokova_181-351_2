@@ -193,7 +193,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QLineEdit" name="lineEdit"/>
+        <widget class="QLineEdit" name="lineEdit_find"/>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_find">
@@ -270,5 +270,22 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>lineEdit_find</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>pushButton_find</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>176</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>377</x>
+     <y>264</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

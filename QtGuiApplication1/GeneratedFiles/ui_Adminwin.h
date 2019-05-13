@@ -53,7 +53,7 @@ public:
     QFrame *line_5;
     QFrame *line_2;
     QHBoxLayout *horizontalLayout;
-    QLineEdit *lineEdit;
+    QLineEdit *lineEdit_find;
     QPushButton *pushButton_find;
     QFrame *line_6;
     QHBoxLayout *horizontalLayout_4;
@@ -216,10 +216,10 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        lineEdit = new QLineEdit(Adminwin);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
+        lineEdit_find = new QLineEdit(Adminwin);
+        lineEdit_find->setObjectName(QString::fromUtf8("lineEdit_find"));
 
-        horizontalLayout->addWidget(lineEdit);
+        horizontalLayout->addWidget(lineEdit_find);
 
         pushButton_find = new QPushButton(Adminwin);
         pushButton_find->setObjectName(QString::fromUtf8("pushButton_find"));
@@ -262,6 +262,7 @@ public:
 
 
         retranslateUi(Adminwin);
+        QObject::connect(lineEdit_find, SIGNAL(textEdited(QString)), pushButton_find, SLOT(click()));
 
         QMetaObject::connectSlotsByName(Adminwin);
     } // setupUi
