@@ -7,7 +7,7 @@
 #include <QSqlRecord>
 #include <QDebug>
 #include <QVariant>
-
+#include "Managerwin.h"
 
 
 DataBase::DataBase()
@@ -26,7 +26,6 @@ bool checkTopic(std::string topic) {
 			else return false;
 		}
 	}
-	return true;
 }
 bool checkAuthor(std::string author) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -68,7 +67,6 @@ bool checkMag(std::string magazine) {
 			else return false;
 		}
 	}
-	return true;
 }
 
 void DataBase::download() {
@@ -111,9 +109,14 @@ void DataBase::downloadlogpas(std::string & res) {
 	else
 		qDebug() << "open";
 	QSqlQuery query(db);
-	//query.exec("DROP TABLE User");
+	query.exec("DROP TABLE User");
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL,"
 		"access VARCHAR(10) NOT NULL)");
+	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
+	query.bindValue(":login", "  ");
+	query.bindValue(":password", "  ");
+	query.bindValue(":access", "  ");
+	query.exec();
 	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
 	query.bindValue(":login", "admin");
 	query.bindValue(":password", "123");

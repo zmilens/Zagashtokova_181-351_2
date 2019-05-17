@@ -21,9 +21,12 @@ private slots:
 	//void on_pushButton_delete_clicked();
 	void on_pushButton_find_clicked();
 	void on_pushButton_clicked();
+	void ready_read();
+	void send_server(QString com);
 private:
 	Ui::Managerwin ui;
 	QStandardItemModel *model;
+	QTcpSocket *socket;
 	QSqlTableModel *mod;
 };
 

@@ -5,6 +5,9 @@
 #include "Adminwin.h"
 #include "Managerwin.h"
 #include "Clientwin.h"
+#include <sstream>
+#include <QTcpSocket>
+#include "DataBase.h"
 
 class labn : public QMainWindow
 {
@@ -15,9 +18,14 @@ public:
 
 private:
 	Ui::labnClass ui;
+	QTcpSocket *socket;
 	Managerwin *manwin;
 	Clientwin *cliwin;
 	Adminwin *admwin;
 private slots:
 	void on_pushButton_autorize_clicked();
+	void connected();
+	void ready_read();
+	void send_server(QString com);
+	void disconnected();
 };

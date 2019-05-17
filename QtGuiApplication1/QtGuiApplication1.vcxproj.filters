@@ -53,13 +53,13 @@
     <QtMoc Include="labn.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Managerwin.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="Clientwin.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Adminwin.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Managerwin.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

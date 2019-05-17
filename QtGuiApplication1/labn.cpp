@@ -1,8 +1,5 @@
 #include <iostream>
 #include "labn.h"
-#include "Adminwin.h"
-#include "Managerwin.h"
-#include "Clientwin.h"
 #include <QMessageBox>
 #include <QIODevice>
 #include <QFile>
@@ -20,54 +17,32 @@ labn::labn(QWidget *parent)
 	manwin = new Managerwin();
 	cliwin = new Clientwin();
 	admwin = new Adminwin();
+
+	socket= new QTcpSocket(this);
+	socket->connectToHost("127.0.0.1", 33333);
+	connect(socket, SIGNAL(connected()), SLOT(connected()));
+	connect(socket, SIGNAL(readyRead()), SLOT(ready_read()));
+
 }
-int autorize(QString login, QString password)
-{
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-	db.setDatabaseName("Logpas");
-	if (!db.open())
-		qDebug() << db.lastError().text();
-	else
-		qDebug() << "open";
-	QSqlQuery query(db);
-	
-	if (query.exec("SELECT * FROM User")) {
-		while (query.next()) {
-			if ((login == query.value(0).toString()) && (password == query.value(1).toString())) {
-				if (query.value(2) == "Admin") {
-					db.close();
-					return 1;
-				}
-				else if (query.value(2) == "Manager") {
-					db.close();
-					return 2;
-				}
-				else if (query.value(2) == "User") {
-					db.close();
-					return 3;
-				}
-			}
-		}
-	}
-	return 0;
-}
+
+
 void labn::on_pushButton_autorize_clicked()
 {
 	//—читываем lineEdits
 	QString login = ui.lineEdit_login->text();
 	QString password = ui.lineEdit_password->text();
 	QMessageBox msgBox;
-
-	if (autorize(login, password) == 1) {
+	
+	/*if (autorize(login, password) == "Admin") {
 		msgBox.setText("Admin access");
 		admwin->show();
 
 	}
-	else if (autorize(login, password) == 2) {
+	else if (autorize(login, password) == "Manager") {
 		msgBox.setText("Manager access");
 		manwin->show();
 	}
-	else if (autorize(login, password) == 3) {
+	else if (autorize(login, password) == "User") {
 		msgBox.setText("User access");
 		cliwin->show();
 	}
@@ -82,6 +57,68 @@ void labn::on_pushButton_autorize_clicked()
 		{
 			close();
 		}
-	}
+	}*/
+	QString message;
+	message = "autorize " + login + " " + password;
+	send_server(message);
 
+}
+
+void labn::connected() {
+	QMessageBox msgBox;
+	msgBox.setText("Connected to the server");
+	msgBox.exec();
+}
+
+void labn::disconnected() {
+	QMessageBox msgBox;
+	msgBox.setText("Disconnected from server");
+	msgBox.exec();
+}
+
+void labn::ready_read() {
+	QByteArray array;
+	std::string message;
+	QMessageBox msgBox;
+	while (socket->bytesAvailable() > 0) {
+		array = socket->readAll();
+		message = array.toStdString();
+	}
+	if (message == "Admin") {
+		msgBox.setText("Admin access");
+		admwin->show();
+		this->close();
+		msgBox.exec();
+	}
+	else {
+		if (message == "Manager") {
+			msgBox.setText("Manager access");
+			manwin->show();
+			this->close();
+			msgBox.exec();
+		}
+		else {
+			if (message == "User") {
+				msgBox.setText("User access");
+				cliwin->show();
+				this->close();
+				msgBox.exec();
+			}
+			else {
+				msgBox.setText("Login is incorrect.");
+				msgBox.setInformativeText("Do you want to try again?");
+				msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
+				msgBox.setDefaultButton(QMessageBox::Retry);
+				int res = msgBox.exec();
+				if (res == QMessageBox::Close)
+					close();
+			}
+		}
+	}
+} 
+
+void labn::send_server(QString message) {
+	QByteArray array;
+	array.append(message);
+	socket->write(array);
 }

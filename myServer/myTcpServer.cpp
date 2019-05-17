@@ -1,15 +1,19 @@
 
 #include "myTcpServer.h"
+#include "DataBase.h"
 #include <QDebug>
+
 
 myTcpServer::myTcpServer(QObject *parent)
 	: QObject(parent)
 {
 	mTcpServer = new QTcpServer(this);
 
-	connect(mTcpServer, &QTcpServer::newConnection, this, &myTcpServer::slotNewConnection);
-	
-	if (!mTcpServer->listen(QHostAddress::Any, 33333) && server_status == 0) {
+	connect(mTcpServer, &QTcpServer::newConnection, this, &myTcpServer::slotNewConnection); //сигнал newConnection отправляется каждый раз, когда клиент подключается к серверу
+	//создается соединение данного типа из сигнала в 
+	//объекте-отправителе с методом в объекте- получателе . Возвращает дескриптор соединения, 
+	//который можно использовать для его отключения позже.
+	if (!mTcpServer->listen(QHostAddress::Any, 33333) && server_status == 0) { //прослушивает входящие соединения
 		qDebug() << "server isn't work";
 	}
 	else {
@@ -20,45 +24,80 @@ myTcpServer::myTcpServer(QObject *parent)
 
 myTcpServer::~myTcpServer()
 {
-	server_status = 0;
+	if (server_status == 1) {
+		foreach(int i, SClients.keys()) { //foreach перебирает все элементы контейнера 
+			QTextStream qts(SClients[i]); //для чтения и записи
+			qts.setAutoDetectUnicode(true); //ищет кодировку Unicode, просматривая данные потока, если есть UTF заменит текущий кодек на кодек UTF.
+			qts << QDateTime::currentDateTime().toString(); //считывает дату-время 
+			SClients[i]->close();
+			SClients.remove(i); //удаляет
+		}
+		mTcpServer->close();
+		qDebug() << QString::fromUtf8("server is stop");
+		server_status = 0;
+	}
 }
 
 void myTcpServer::slotNewConnection()
 {
 	if (server_status == 1) 
 	{
-		//QTcpSocket * clientSocket = mTcpServer->nextPendingConnection();
-		//mTcpSocket->write("hello!\r\n");
 		QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); //подтверждение соединения, возвращает сокет
 		int idclien = clientSocket->socketDescriptor();
 		SClients[idclien] = clientSocket;
 		connect(SClients[idclien], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
-		connect(SClients[idclien], SIGNAL(disconected()), this, SLOT(slotClientDisconnected()));
+		connect(SClients[idclien], &QTcpSocket::disconnected, this, &myTcpServer::slotClientDisconnected);
 	}
 }
 
 void myTcpServer::slotSendClient(QString com) {
-	QObject *obj = QObject::sender();
-	QTcpSocket *sock = static_cast<QTcpSocket *>(obj);
+	QObject *obj = QObject::sender(); //возвращает указатель на объект
+	QTcpSocket *socket = static_cast<QTcpSocket *>(obj); //преобразует obj ?
 	QByteArray array;
-	array.append(com);
+	array.append(com); //добавляет строку к байтовому массиву 
 
-	sock->write(array);
+	socket->write(array); 
 }
 
 void myTcpServer::slotReadClient()
 {
 	QTcpSocket* clientSocket = (QTcpSocket*)sender();
-	int idclien = clientSocket->socketDescriptor();
-	QTextStream os(clientSocket);
-	qDebug() << os.readAll();	
+	int idclien = (int)clientSocket->socketDescriptor();
+
+	QByteArray array = clientSocket->readAll();
+	std::string login, password, mess, action;
+	mess = array.toStdString();
+	qDebug() << QString::fromStdString(mess);
+	int p = mess.find(" ");
+	action = mess.substr(0, p);
+	mess.erase(0, p + 1);
+	if (action == "autorize") {
+		p = mess.find(" ");
+		login = mess.substr(0, p);
+		mess.erase(0, p + 1);
+		p = mess.find(" ");
+		password= mess.substr(0, p);
+		mess.erase(0, p + 1);
+		qDebug() << "login:" << QString::fromStdString(login)
+			<< "password:" << QString::fromStdString(password)
+			<< "access" << autorize(QString::fromStdString(login), QString::fromStdString(password));
+		slotSendClient(autorize(QString::fromStdString(login), QString::fromStdString(password)));
+	}
+	else if (action =="Managerwin") {
+		std::string mess;
+		DataBase base;
+		base.download();
+		slotSendClient(QString::fromStdString(mess));
+	}
+
 }
+
 
 void myTcpServer::slotClientDisconnected() {
 
-	QTcpSocket* clientSocket = (QTcpSocket*)sender();
-	int idclien = clientSocket->socketDescriptor();
-	SClients[idclien]->close();
-	qDebug() << QString::fromUtf8("сервер остановлен");
+	QObject * object = QObject::sender();
+	QTcpSocket * socket = static_cast<QTcpSocket *>(object);
+	socket->close();
+	qDebug() << QString::fromUtf8("server is stop");
 }
 
