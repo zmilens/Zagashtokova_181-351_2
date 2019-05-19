@@ -60,6 +60,7 @@ void Managerwin::send_server(QString message) {
 }*/
 
 void Managerwin::on_pushButton_add_clicked() {
+	
 	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 	db.setDatabaseName("Test");
 	if (!db.open())
@@ -86,12 +87,12 @@ void Managerwin::on_pushButton_add_clicked() {
 	query.bindValue(":article", arc);
 	query.bindValue(":magazine", mag);
 	query.exec();*/
-	top = QString::fromStdString(top.toStdString());
+	/*top = QString::fromStdString(top.toStdString());
 	name = QString::fromStdString(name.toStdString());
 	arc = QString::fromStdString(arc.toStdString());
 	mag = QString::fromStdString(mag.toStdString());
-	ms.setText("The record added to the database");
-	send_server("Add_record ");
+	ms.setText("The record added to the database");*/
+	send_server("Add_record "+ top+" "+name+" "+mag);
 	db.close();
 }
 

@@ -109,10 +109,13 @@ void myTcpServer::slotReadClient()
 		p = mess.find(" ");
 		QString top = QString::fromStdString(mess.substr(0, p));
 		mess.erase(0, p + 1);
+		p = mess.find(" ");
 		QString name = QString::fromStdString(mess.substr(0, p));
 		mess.erase(0, p + 1);
+		p = mess.find(" ");
 		QString arc = QString::fromStdString(mess.substr(0, p));
 		mess.erase(0, p + 1);
+		p = mess.find(" ");
 		QString mag = QString::fromStdString(mess);
 		QSqlQuery query(db);
 		query.prepare("INSERT INTO Database(topic, author, article, magazine)"
