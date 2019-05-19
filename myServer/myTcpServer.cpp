@@ -1,4 +1,4 @@
-
+п»ї
 #include "myTcpServer.h"
 #include "DataBase.h"
 #include <QDebug>
@@ -9,11 +9,11 @@ myTcpServer::myTcpServer(QObject *parent)
 {
 	mTcpServer = new QTcpServer(this);
 
-	connect(mTcpServer, &QTcpServer::newConnection, this, &myTcpServer::slotNewConnection); //сигнал newConnection отправляется каждый раз, когда клиент подключается к серверу
-	//создается соединение данного типа из сигнала в 
-	//объекте-отправителе с методом в объекте- получателе . Возвращает дескриптор соединения, 
-	//который можно использовать для его отключения позже.
-	if (!mTcpServer->listen(QHostAddress::Any, 33333) && server_status == 0) { //прослушивает входящие соединения
+	connect(mTcpServer, &QTcpServer::newConnection, this, &myTcpServer::slotNewConnection); //СЃРёРіРЅР°Р» newConnection РѕС‚РїСЂР°РІР»СЏРµС‚СЃСЏ РєР°Р¶РґС‹Р№ СЂР°Р·, РєРѕРіРґР° РєР»РёРµРЅС‚ РїРѕРґРєР»СЋС‡Р°РµС‚СЃСЏ Рє СЃРµСЂРІРµСЂСѓ
+	//СЃРѕР·РґР°РµС‚СЃСЏ СЃРѕРµРґРёРЅРµРЅРёРµ РґР°РЅРЅРѕРіРѕ С‚РёРїР° РёР· СЃРёРіРЅР°Р»Р° РІ 
+	//РѕР±СЉРµРєС‚Рµ-РѕС‚РїСЂР°РІРёС‚РµР»Рµ СЃ РјРµС‚РѕРґРѕРј РІ РѕР±СЉРµРєС‚Рµ- РїРѕР»СѓС‡Р°С‚РµР»Рµ . Р’РѕР·РІСЂР°С‰Р°РµС‚ РґРµСЃРєСЂРёРїС‚РѕСЂ СЃРѕРµРґРёРЅРµРЅРёСЏ, 
+	//РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РґР»СЏ РµРіРѕ РѕС‚РєР»СЋС‡РµРЅРёСЏ РїРѕР·Р¶Рµ.
+	if (!mTcpServer->listen(QHostAddress::Any, 33333) && server_status == 0) { //РїСЂРѕСЃР»СѓС€РёРІР°РµС‚ РІС…РѕРґСЏС‰РёРµ СЃРѕРµРґРёРЅРµРЅРёСЏ
 		qDebug() << "server isn't work";
 	}
 	else {
@@ -25,12 +25,12 @@ myTcpServer::myTcpServer(QObject *parent)
 myTcpServer::~myTcpServer()
 {
 	if (server_status == 1) {
-		foreach(int i, SClients.keys()) { //foreach перебирает все элементы контейнера 
-			QTextStream qts(SClients[i]); //для чтения и записи
-			qts.setAutoDetectUnicode(true); //ищет кодировку Unicode, просматривая данные потока, если есть UTF заменит текущий кодек на кодек UTF.
-			qts << QDateTime::currentDateTime().toString(); //считывает дату-время 
+		foreach(int i, SClients.keys()) { //foreach РїРµСЂРµР±РёСЂР°РµС‚ РІСЃРµ СЌР»РµРјРµРЅС‚С‹ РєРѕРЅС‚РµР№РЅРµСЂР° 
+			QTextStream qts(SClients[i]); //РґР»СЏ С‡С‚РµРЅРёСЏ Рё Р·Р°РїРёСЃРё
+			qts.setAutoDetectUnicode(true); //РёС‰РµС‚ РєРѕРґРёСЂРѕРІРєСѓ Unicode, РїСЂРѕСЃРјР°С‚СЂРёРІР°СЏ РґР°РЅРЅС‹Рµ РїРѕС‚РѕРєР°, РµСЃР»Рё РµСЃС‚СЊ UTF Р·Р°РјРµРЅРёС‚ С‚РµРєСѓС‰РёР№ РєРѕРґРµРє РЅР° РєРѕРґРµРє UTF.
+			qts << QDateTime::currentDateTime().toString(); //СЃС‡РёС‚С‹РІР°РµС‚ РґР°С‚Сѓ-РІСЂРµРјСЏ 
 			SClients[i]->close();
-			SClients.remove(i); //удаляет
+			SClients.remove(i); //СѓРґР°Р»СЏРµС‚
 		}
 		mTcpServer->close();
 		qDebug() << QString::fromUtf8("server is stop");
@@ -40,9 +40,9 @@ myTcpServer::~myTcpServer()
 
 void myTcpServer::slotNewConnection()
 {
-	if (server_status == 1) 
+	if (server_status == 1)
 	{
-		QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); //подтверждение соединения, возвращает сокет
+		QTcpSocket* clientSocket = mTcpServer->nextPendingConnection(); //РїРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ СЃРѕРµРґРёРЅРµРЅРёСЏ, РІРѕР·РІСЂР°С‰Р°РµС‚ СЃРѕРєРµС‚
 		int idclien = clientSocket->socketDescriptor();
 		SClients[idclien] = clientSocket;
 		connect(SClients[idclien], SIGNAL(readyRead()), this, SLOT(slotReadClient()));
@@ -51,12 +51,12 @@ void myTcpServer::slotNewConnection()
 }
 
 void myTcpServer::slotSendClient(QString com) {
-	QObject *obj = QObject::sender(); //возвращает указатель на объект
-	QTcpSocket *socket = static_cast<QTcpSocket *>(obj); //преобразует obj ?
+	QObject *obj = QObject::sender(); //РІРѕР·РІСЂР°С‰Р°РµС‚ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РѕР±СЉРµРєС‚
+	QTcpSocket *socket = static_cast<QTcpSocket *>(obj); //РїСЂРµРѕР±СЂР°Р·СѓРµС‚ obj ?
 	QByteArray array;
-	array.append(com); //добавляет строку к байтовому массиву 
+	array.append(com); //РґРѕР±Р°РІР»СЏРµС‚ СЃС‚СЂРѕРєСѓ Рє Р±Р°Р№С‚РѕРІРѕРјСѓ РјР°СЃСЃРёРІСѓ 
 
-	socket->write(array); 
+	socket->write(array);
 }
 
 void myTcpServer::slotReadClient()
@@ -76,20 +76,55 @@ void myTcpServer::slotReadClient()
 		login = mess.substr(0, p);
 		mess.erase(0, p + 1);
 		p = mess.find(" ");
-		password= mess.substr(0, p);
+		password = mess.substr(0, p);
 		mess.erase(0, p + 1);
 		qDebug() << "login:" << QString::fromStdString(login)
 			<< "password:" << QString::fromStdString(password)
 			<< "access" << autorize(QString::fromStdString(login), QString::fromStdString(password));
 		slotSendClient(autorize(QString::fromStdString(login), QString::fromStdString(password)));
 	}
-	else if (action =="Managerwin") {
+	else if (action == "Adminwin") {
 		std::string mess;
 		DataBase base;
-		base.download();
+		base.downloadlogpas(mess);
 		slotSendClient(QString::fromStdString(mess));
 	}
-
+	else if (action == "Managerwin") {
+		std::string mess;
+		DataBase base;
+		base.download(mess);
+		slotSendClient(QString::fromStdString(mess));
+	}
+	else if (action == "Clientwin") {
+		std::string mess;
+		DataBase base;
+		base.download(mess);
+		slotSendClient(QString::fromStdString(mess));
+	}
+	else if (action == "Add_record") {
+		QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+		db.setDatabaseName("Test");
+			if(!db.open())
+				qDebug() << db.lastError().text();
+		p = mess.find(" ");
+		QString top = QString::fromStdString(mess.substr(0, p));
+		mess.erase(0, p + 1);
+		QString name = QString::fromStdString(mess.substr(0, p));
+		mess.erase(0, p + 1);
+		QString arc = QString::fromStdString(mess.substr(0, p));
+		mess.erase(0, p + 1);
+		QString mag = QString::fromStdString(mess);
+		QSqlQuery query(db);
+		query.prepare("INSERT INTO Database(topic, author, article, magazine)"
+			"VALUES (:topic, :author, :article, :magazine");
+		query.bindValue(":topic", top);
+		query.bindValue(":author", name);
+		query.bindValue(":article", arc);
+		query.bindValue(":magazine", mag);
+		query.exec();
+		//ms.setText("The record added to the database");
+		db.close();
+	}
 }
 
 

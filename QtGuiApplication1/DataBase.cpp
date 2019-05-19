@@ -96,7 +96,7 @@ void DataBase::download(std::string & res)
 	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
 		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
 		"magazine VARCHAR(15) NOT NULL)");
-	
+
 	query.exec("SELECT * FROM Database");
 	while (query.next()) {
 		res += query.value(0).toString().toStdString() + '\t' + query.value(1).toString().toStdString() + '\t' + query.value(2).toString().toStdString() + '\t' + query.value(3).toString().toStdString() + '\n';
@@ -114,22 +114,7 @@ void DataBase::downloadlogpas(std::string & res) {
 	//query.exec("DROP TABLE User");
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL,"
 		"access VARCHAR(10) NOT NULL)");
-	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
-	query.bindValue(":login", "admin");
-	query.bindValue(":password", "123");
-	query.bindValue(":access", "Admin");
-	query.exec();
 
-	QString status_values[2] = { "Manager", "User" };
-	QString status_login[2] = { "Manager", "User" };
-	for (int i = 1; i < 21; i++)
-	{
-		query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
-		query.bindValue(":login", status_login[i % 2] + QString::number(i));
-		query.bindValue(":password", "123" + QString::number(i));
-		query.bindValue(":access", status_values[i % 2]);
-		query.exec();
-	}
 	query.exec("SELECT * FROM User");
 	while (query.next()) {
 		res += query.value(0).toString().toStdString() + '\t' + query.value(1).toString().toStdString() + '\t' + query.value(2).toString().toStdString() + '\n';
@@ -260,7 +245,7 @@ void DataBase::finding(std::string finder)
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
-	
+
 	db.clear();
 	transformStr2BD(f);
 }

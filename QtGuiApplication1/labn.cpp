@@ -33,31 +33,6 @@ void labn::on_pushButton_autorize_clicked()
 	QString password = ui.lineEdit_password->text();
 	QMessageBox msgBox;
 	
-	/*if (autorize(login, password) == "Admin") {
-		msgBox.setText("Admin access");
-		admwin->show();
-
-	}
-	else if (autorize(login, password) == "Manager") {
-		msgBox.setText("Manager access");
-		manwin->show();
-	}
-	else if (autorize(login, password) == "User") {
-		msgBox.setText("User access");
-		cliwin->show();
-	}
-	else
-	{
-		msgBox.setText("Login is incorrect.");
-		msgBox.setInformativeText("Do you want to try again?");
-		msgBox.setStandardButtons(QMessageBox::Retry | QMessageBox::Close);
-		msgBox.setDefaultButton(QMessageBox::Retry);
-		int res = msgBox.exec();
-		if (res == QMessageBox::Close)
-		{
-			close();
-		}
-	}*/
 	QString message;
 	message = "autorize " + login + " " + password;
 	send_server(message);

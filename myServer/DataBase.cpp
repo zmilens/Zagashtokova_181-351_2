@@ -7,7 +7,7 @@
 #include <QSqlRecord>
 #include <QDebug>
 #include <QVariant>
-#include "Managerwin.h"
+
 
 
 DataBase::DataBase()
@@ -26,6 +26,7 @@ bool checkTopic(std::string topic) {
 			else return false;
 		}
 	}
+	return true;
 }
 bool checkAuthor(std::string author) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -67,6 +68,7 @@ bool checkMag(std::string magazine) {
 			else return false;
 		}
 	}
+	return true;
 }
 
 void DataBase::download() {
@@ -94,7 +96,7 @@ void DataBase::download(std::string & res)
 	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
 		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
 		"magazine VARCHAR(15) NOT NULL)");
-	
+
 	query.exec("SELECT * FROM Database");
 	while (query.next()) {
 		res += query.value(0).toString().toStdString() + '\t' + query.value(1).toString().toStdString() + '\t' + query.value(2).toString().toStdString() + '\t' + query.value(3).toString().toStdString() + '\n';
@@ -109,14 +111,9 @@ void DataBase::downloadlogpas(std::string & res) {
 	else
 		qDebug() << "open";
 	QSqlQuery query(db);
-	query.exec("DROP TABLE User");
+	//query.exec("DROP TABLE User");
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL,"
 		"access VARCHAR(10) NOT NULL)");
-	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
-	query.bindValue(":login", "  ");
-	query.bindValue(":password", "  ");
-	query.bindValue(":access", "  ");
-	query.exec();
 	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
 	query.bindValue(":login", "admin");
 	query.bindValue(":password", "123");
@@ -263,7 +260,7 @@ void DataBase::finding(std::string finder)
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
-	
+
 	db.clear();
 	transformStr2BD(f);
 }
