@@ -115,10 +115,12 @@
   <ItemGroup>
     <ClCompile Include="Adminwin.cpp" />
     <ClCompile Include="Clientwin.cpp" />
+    <ClCompile Include="crypto.cpp" />
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="labn.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Managerwin.cpp" />
+    <ClCompile Include="TinyAES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="labn.h" />
@@ -145,7 +147,9 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="crypto.h" />
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="TinyAES.h" />
     <QtMoc Include="Managerwin.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtSql;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtNetworkAuth</IncludePath>

@@ -43,57 +43,44 @@ Managerwin::Managerwin(QWidget *parent)
 		item = new QStandardItem(QString::fromStdString(base.db[i].magazine));
 		model->setItem(i, 3, item);
 	}*/
-	send_server("Managerwin");
+	send_server("Database_loaded ");
 
 }
 
 void Managerwin::send_server(QString message) {
 	QByteArray array;
 	array.append(message);
-	socket->write(array);
+	crypto cryp;
+	QByteArray array2 = cryp.encrypt(array);
+	socket->write(array2);
 }
-/*void Managerwin:: pushButton_delete_clicked() {
-	QString d = ui.lineEdit_fd->text();
-	if (d != "") {
-		int id = d.toInt();
-	}
-}*/
 
-void Managerwin::on_pushButton_add_clicked() {
-	
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-	db.setDatabaseName("Test");
-	if (!db.open())
-		qDebug() << db.lastError().text();
-
-	QSqlQuery query(db);
-	query.exec("CREATE TABLE Database (topic VARCHAR(20) NOT NULL,"
-		"author VARCHAR(20) NOT NULL, article VARCHAR(15) NOT NULL,"
-		"magazine VARCHAR(15) NOT NULL)");
-	query.exec("SELECT * FROM Database");
+void Managerwin::on_pushButton_delete_clicked() {
 	QString top = ui.lineEdit_topic->text();
 	QString name = ui.lineEdit_author->text();
 	QString arc = ui.lineEdit_article->text();
 	QString mag = ui.lineEdit_magazine->text();
 	QMessageBox ms;
-	/*while (query.next())
-		if ((query.value(0).toString() == top.toLocal8Bit().constData()) && (query.value(1).toString() == name.toLocal8Bit().constData())
-			&& (query.value(2).toString() == arc.toLocal8Bit().constData()) && (query.value(3).toString() == mag.toLocal8Bit().constData()))
-			ms.setText("This record is already in the database");*/
-	/*query.prepare("INSERT INTO Database(topic, author, article, magazine)"
-		"VALUES (:topic, :author, :article, :magazine");
-	query.bindValue(":topic", top);
-	query.bindValue(":author", name);
-	query.bindValue(":article", arc);
-	query.bindValue(":magazine", mag);
-	query.exec();*/
-	/*top = QString::fromStdString(top.toStdString());
-	name = QString::fromStdString(name.toStdString());
-	arc = QString::fromStdString(arc.toStdString());
-	mag = QString::fromStdString(mag.toStdString());
-	ms.setText("The record added to the database");*/
-	send_server("Add_record "+ top+" "+name+" "+mag);
-	db.close();
+	ms.setText("The record is deleted from database");
+	send_server("Delete_record: " + top + " " + name + " " + arc + " " + mag);
+}
+
+void Managerwin::on_pushButton_add_clicked() {
+
+	QString top = ui.lineEdit_topic->text();
+	QString name = ui.lineEdit_author->text();
+	QString arc = ui.lineEdit_article->text();
+	QString mag = ui.lineEdit_magazine->text();
+	if (checkTopic(top.toStdString()) != "0" && checkAuthor(name.toStdString()) != "0"
+		&& checkArticle(arc.toStdString()) != "0" &&checkMag(mag.toStdString()) != "0") {
+		top = QString::fromStdString(checkTopic(top.toStdString()));
+		name = QString::fromStdString(checkAuthor(name.toStdString()));
+		arc = QString::fromStdString(checkArticle(arc.toStdString()));
+		mag = QString::fromStdString(checkMag(mag.toStdString()));
+	}
+	QMessageBox ms;
+	ms.setText("The record added to the database");
+	send_server("Add_record: " + top + " " + name + " " + arc + " " + mag);
 }
 
 void Managerwin::on_pushButton_find_clicked() {
@@ -106,7 +93,6 @@ void Managerwin::on_pushButton_find_clicked() {
 	model->setHeaderData(2, Qt::Horizontal, "Article");
 	model->setHeaderData(3, Qt::Horizontal, "Magazine");
 	DataBase base;
-	base.download();
 	base.finding(t.toStdString());
 	for (int i = 0; i < base.db.size(); i++)
 	{
@@ -142,7 +128,7 @@ void Managerwin::on_pushButton_clicked() {
 		item = new QStandardItem(QString::fromStdString(base.db[i].magazine));
 		model->setItem(i, 3, item);
 	}*/
-	send_server("update");
+	send_server("Database_loaded");
 }
 
 void Managerwin::ready_read() {
@@ -150,8 +136,11 @@ void Managerwin::ready_read() {
 	std::string message;
 	while (socket->bytesAvailable() > 0) {
 		array = socket->readAll();
-		message = array.toStdString();
 	}
+	crypto cryp;
+	QByteArray array2 = cryp.decrypt(array);
+	message = array2.toStdString();
+
 	DataBase base;
 	base.transformStr2BD(message);
 	QStandardItem *item;

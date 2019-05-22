@@ -20,10 +20,11 @@ struct data {
 };
 
 
-bool checkTopic(std::string topic);
-bool checkAuthor(std::string author);
-bool checkArticle(std::string article);
-bool checkMag(std::string magazine);
+std::string checkTopic(std::string topic);
+std::string checkAuthor(std::string author);
+std::string checkArticle(std::string article);
+std::string checkMag(std::string magazine);
+std::string checkAccess(std::string access);
 
 
 class DataBase {
@@ -36,26 +37,22 @@ public:
 	~DataBase();//деструктор* 
 	bool add_data(data tempData);// добавить строку данных в БД 
 	bool add_datalogpas(data tempData);
-	//bool open(QFile file);//открываем файл 
-	//bool download(std::string & res);//загружаем данные из файла в строку 
-	//bool close();// закрытие файла 
 	void download(std::string & res); //загружаем данные из файла в строку
 	void download();
 	data parsing(std::string line);
 	void transformStr2BD(std::string bd);// преобразует строку в БД 
 	bool del_data(int id);//удалить запись с заданным id 
 	void finding(std::string find);
-	//template<typename T>
-	//std::vector<data> find(int criterior, T data2find);//удалить запись с заданным id 
 	void downloadlogpas(std::string & res);
 	void downloadlogpas();
 	void transformStr2BDlogpas(std::string bd);
 	void findinglogpas(std::string finder);
-	bool write2file();
+
 
 private:
 	std::string bd;
 };
 
 QString autorize(QString login, QString password);
+
 

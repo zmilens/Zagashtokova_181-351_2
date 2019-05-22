@@ -98,14 +98,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\QtGuiApplication1\DataBase.cpp" />
+    <ClCompile Include="crypto.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="myTcpServer.cpp" />
+    <ClCompile Include="TinyAES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="myTcpServer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\QtGuiApplication1\DataBase.h" />
+    <ClInclude Include="crypto.h" />
+    <ClInclude Include="TinyAES.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

@@ -45,20 +45,17 @@ void labn::connected() {
 	msgBox.exec();
 }
 
-void labn::disconnected() {
-	QMessageBox msgBox;
-	msgBox.setText("Disconnected from server");
-	msgBox.exec();
-}
-
 void labn::ready_read() {
 	QByteArray array;
 	std::string message;
-	QMessageBox msgBox;
 	while (socket->bytesAvailable() > 0) {
 		array = socket->readAll();
-		message = array.toStdString();
 	}
+	crypto cryp;
+	QByteArray array2 = cryp.decrypt(array);
+	message = array2.toStdString();
+
+	QMessageBox msgBox;
 	if (message == "Admin") {
 		msgBox.setText("Admin access");
 		admwin->show();
@@ -95,5 +92,7 @@ void labn::ready_read() {
 void labn::send_server(QString message) {
 	QByteArray array;
 	array.append(message);
-	socket->write(array);
+	crypto cryp;
+	QByteArray array2 = cryp.encrypt(array);
+	socket->write(array2);
 }

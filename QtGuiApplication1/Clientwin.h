@@ -1,5 +1,5 @@
 #pragma once
-
+#include "crypto.h"
 #include <QDialog>
 #include "ui_Clientwin.h"
 #include <QStandardItemModel>

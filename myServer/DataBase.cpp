@@ -16,60 +16,79 @@ DataBase::DataBase()
 }
 
 
-bool checkTopic(std::string topic) {
+std::string checkTopic(std::string topic) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
 	for (int i = 0; i < topic.length(); i++) {
 		if (!(uppercase.contains(topic[i]))) {
 			if (lowercase.contains(topic[i]))
 				topic[i] = toupper(topic[i]);
-			else return false;
+			else return "0";
 		}
 	}
-	return true;
+	return topic;
 }
-bool checkAuthor(std::string author) {
+std::string checkAuthor(std::string author) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
 	if (!(uppercase.contains(author[0]))) {
 		if (lowercase.contains(author[0]))
 			author[0] = toupper(author[0]);
-		else return false;
+		else return "0";
 	}
 	for (int i = 1; i < author.length(); i++) {
 		if (!(lowercase.contains(author[i]))) {
 			if (uppercase.contains(author[i]))
 				author[i] = tolower(author[i]);
-			else return false;
+			else return "0";
 		}
 	}
-	return true;
+	return author;
 }
-bool checkArticle(std::string article) {
+std::string checkArticle(std::string article) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
 	for (int i = 0; i < article.length(); i++) {
 		if (!(lowercase.contains(article[i]))) {
 			if (uppercase.contains(article[i]))
 				article[i] = tolower(article[i]);
-			else return false;
+			else return "0";
 		}
 	}
-	return true;
+	return article;
 
 }
-bool checkMag(std::string magazine) {
+std::string checkMag(std::string magazine) {
 	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
 	for (int i = 0; i < magazine.length(); i++) {
 		if (!(uppercase.contains(magazine[i]))) {
 			if (lowercase.contains(magazine[i]))
 				magazine[i] = toupper(magazine[i]);
-			else return false;
+			else return "0";
 		}
 	}
-	return true;
+	return magazine;
 }
+
+std::string checkAccess(std::string access) {
+	QString uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	QString lowercase = "abcdefghijklmnopqrstuvwxyz";
+	if (!(uppercase.contains(access[0]))) {
+		if (lowercase.contains(access[0]))
+			access[0] = toupper(access[0]);
+		else return "0";
+	}
+	for (int i = 1; i < access.length(); i++) {
+		if (!(lowercase.contains(access[i]))) {
+			if (uppercase.contains(access[i]))
+				access[i] = tolower(access[i]);
+			else return "0";
+		}
+	}
+	return access;
+}
+
 
 void DataBase::download() {
 	std::string res;
@@ -114,22 +133,7 @@ void DataBase::downloadlogpas(std::string & res) {
 	//query.exec("DROP TABLE User");
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL,"
 		"access VARCHAR(10) NOT NULL)");
-	query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
-	query.bindValue(":login", "admin");
-	query.bindValue(":password", "123");
-	query.bindValue(":access", "Admin");
-	query.exec();
 
-	QString status_values[2] = { "Manager", "User" };
-	QString status_login[2] = { "Manager", "User" };
-	for (int i = 1; i < 21; i++)
-	{
-		query.prepare("INSERT INTO User(login, password, access) VALUES(:login, :password, :access)");
-		query.bindValue(":login", status_login[i % 2] + QString::number(i));
-		query.bindValue(":password", "123" + QString::number(i));
-		query.bindValue(":access", status_values[i % 2]);
-		query.exec();
-	}
 	query.exec("SELECT * FROM User");
 	while (query.next()) {
 		res += query.value(0).toString().toStdString() + '\t' + query.value(1).toString().toStdString() + '\t' + query.value(2).toString().toStdString() + '\n';
@@ -185,25 +189,6 @@ void DataBase::transformStr2BDlogpas(std::string bd)
 	}
 }
 
-bool DataBase::del_data(int id)
-{
-	QSqlQuery query;
-
-	// Удаление производим по id записи, который передается в качестве аргумента функции
-	query.prepare("DELETE FROM Test WHERE id= :ID ;");
-	query.bindValue(":ID", id);
-	// Выполняем удаление
-	if (!query.exec()) {
-		//qDebug() << "error delete row " << Test;
-		qDebug() << query.lastError().text();
-		return false;
-	}
-	else {
-		return true;
-	}
-
-}
-
 void DataBase::transformStr2BD(std::string bd)
 {
 	int i = 0;
@@ -252,24 +237,26 @@ void DataBase::transformStr2BD(std::string bd)
 	}
 }
 
-void DataBase::finding(std::string finder)
+void DataBase::finding(std::string find)
 {
 	std::string f;
 	for (int i = 0; i < db.size(); i++) {
-		if ((db[i].topic == finder || db[i].author == finder || db[i].article == finder || db[i].magazine == finder)) {
+		if ((db[i].topic == find) || (db[i].author == find) || (db[i].article == find) || (db[i].magazine == find)) {
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
 
 	db.clear();
 	transformStr2BD(f);
+	DataBase bd;
+	bd.download();
 }
 
 void DataBase::findinglogpas(std::string finder)
 {
 	std::string f;
 	for (int i = 0; i < db1.size(); i++) {
-		if ((db1[i].log == finder || db1[i].pass == finder || db1[i].access == finder)) {
+		if ((db1[i].log == finder) || (db1[i].pass == finder) || (db1[i].access == finder)) {
 			f += db1[i].log + '\t' + db1[i].pass + '\t' + db1[i].access + '\n';
 		}
 	}
@@ -277,24 +264,6 @@ void DataBase::findinglogpas(std::string finder)
 	db1.clear();
 	transformStr2BDlogpas(f);
 }
-/*bool DataBase::write2file()
-{
-
-	QFile file("DataBase.txt");
-	if ((file.exists()) && (file.open(QIODevice::WriteOnly | QIODevice::Text))) {
-		QTextStream writeStream(&file);
-		db_string.clear();
-		for (int i = 0; i < db.size(); i++)
-		{
-			db_string += db[i].topic + "\t" + db[i].author + "\t" + db[i].article + "\t" + db[i].magazine + "\n";
-		}
-		QString str = str.fromStdString(db_string);
-		writeStream << str;
-		file.close();
-		return true;
-	}
-	else return false;
-}*/
 
 QString autorize(QString login, QString password)
 {
@@ -302,8 +271,6 @@ QString autorize(QString login, QString password)
 	db.setDatabaseName("Logpas");
 	if (!db.open())
 		qDebug() << db.lastError().text();
-	else
-		qDebug() << "open";
 	QSqlQuery query(db);
 
 	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, access VARCHAR(10) NOT NULL)");

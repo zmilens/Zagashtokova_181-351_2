@@ -1,5 +1,5 @@
 #pragma once
-
+#include "crypto.h"
 #include <QDialog>
 #include "ui_Managerwin.h"
 #include <QTcpSocket>
@@ -18,7 +18,7 @@ public:
 	//void sendServer(QString com);
 private slots:
 	void on_pushButton_add_clicked();
-	//void on_pushButton_delete_clicked();
+	void on_pushButton_delete_clicked();
 	void on_pushButton_find_clicked();
 	void on_pushButton_clicked();
 	void ready_read();

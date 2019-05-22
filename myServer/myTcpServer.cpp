@@ -3,7 +3,6 @@
 #include "DataBase.h"
 #include <QDebug>
 
-
 myTcpServer::myTcpServer(QObject *parent)
 	: QObject(parent)
 {
@@ -55,8 +54,11 @@ void myTcpServer::slotSendClient(QString com) {
 	QTcpSocket *socket = static_cast<QTcpSocket *>(obj); //преобразует obj ?
 	QByteArray array;
 	array.append(com); //добавляет строку к байтовому массиву 
+	
+	crypto cryp;
+	QByteArray array2 = cryp.encrypt(array);
 
-	socket->write(array);
+	socket->write(array2);
 }
 
 void myTcpServer::slotReadClient()
@@ -65,8 +67,11 @@ void myTcpServer::slotReadClient()
 	int idclien = (int)clientSocket->socketDescriptor();
 
 	QByteArray array = clientSocket->readAll();
+	crypto cryp;
+	QByteArray array2 = cryp.decrypt(array);
+
 	std::string login, password, mess, action;
-	mess = array.toStdString();
+	mess = array2.toStdString();
 	qDebug() << QString::fromStdString(mess);
 	int p = mess.find(" ");
 	action = mess.substr(0, p);

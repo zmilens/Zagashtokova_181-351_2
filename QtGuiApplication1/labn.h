@@ -27,5 +27,4 @@ private slots:
 	void connected();
 	void ready_read();
 	void send_server(QString com);
-	void disconnected();
 };

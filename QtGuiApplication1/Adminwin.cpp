@@ -23,7 +23,9 @@ Adminwin::Adminwin(QWidget *parent)
 void Adminwin::send_server(QString message) {
 	QByteArray array;
 	array.append(message);
-	socket->write(array);
+	crypto cryp;
+	QByteArray array2 = cryp.encrypt(array);
+	socket->write(array2);
 }
 void Adminwin::on_pushButton_find_clicked() {
 	QStandardItem *item;
@@ -51,53 +53,30 @@ void Adminwin::on_pushButton_find_clicked() {
 }
 
 void Adminwin::on_pushButton_add_clicked() {
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-	db.setDatabaseName("Logpas");
-	if (!db.open())
-		qDebug() << db.lastError().text();
 
-	QSqlQuery query(db);
-	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, access VARCHAR(10) NOT NULL)");
-	
-	query.exec("SELECT *FROM User");
-	QString login = ui.lineEdit_login->text();
-	QString password = ui.lineEdit_password->text();
 	QString access = ui.lineEdit_4->text();
-	send_server("Add_user: "+ login + " " + password +" "+ access);
-	db.close();
+	QMessageBox ms;
+	ms.setText("The user added to the database");
+	if (checkAccess(access.toStdString()) != "0" && access.toStdString() != "admin" && (access.toStdString() == "User" || access.toStdString() == "Manager")) {
+		QString login = ui.lineEdit_login->text();
+		QString password = ui.lineEdit_password->text();
+		access = QString::fromStdString(checkAccess(access.toStdString()));
+		send_server("Add_user: " + login + " " + password + " " + access);
+	}
 }
 
 void Adminwin::on_pushButton_delete_clicked() {
-	QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
-	db.setDatabaseName("Logpas");
-	if (!db.open())
-		qDebug() << db.lastError().text();
-
-	QSqlQuery query(db);
-	query.exec("CREATE TABLE User(login VARCHAR(20) NOT NULL, password VARCHAR(20) NOT NULL, access VARCHAR(10) NOT NULL)");
-
-	query.exec("SELECT *FROM User");
 	QString login = ui.lineEdit_login->text();
-	send_server("Delete_user: "+login);
-	db.close();
+	if (login.toStdString() != "admin") {
+		QMessageBox ms;
+		ms.setText("The user deleted from the database");
+		send_server("Delete_user: " + login);
+	}
 }
 
+
 void Adminwin::on_pushButton_clicked() {
-	/*QStandardItem *item;
-	DataBase base;
-	base.downloadlogpas();
-	for (int i = 0; i < base.db1.size(); i++)
-	{
-		item = new QStandardItem(QString::fromStdString(base.db1[i].log));
-		model1->setItem(i, 0, item);
 
-		item = new QStandardItem(QString::fromStdString(base.db1[i].pass));
-		model1->setItem(i, 1, item);
-
-		item = new QStandardItem(QString::fromStdString(base.db1[i].access));
-		model1->setItem(i, 2, item);
-	}
-	*/
 	send_server("Adminwin ");
 }
 
@@ -106,8 +85,11 @@ void Adminwin::ready_read() {
 	std::string message;
 	while (socket->bytesAvailable() > 0) {
 		array = socket->readAll();
-		message = array.toStdString();
 	}
+	crypto cryp;
+	QByteArray array2 = cryp.decrypt(array);
+	message = array2.toStdString();
+
 	DataBase base;
 	base.transformStr2BDlogpas(message);
 	QStandardItem *item;
@@ -132,11 +114,6 @@ void Adminwin::ready_read() {
 	}
 }
 
-void Adminwin::connected() {
-	QMessageBox msgBox;
-	msgBox.setText("Connected to the server");
-	msgBox.exec();
-}
 Adminwin::~Adminwin()
 {
 }

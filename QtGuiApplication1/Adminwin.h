@@ -1,5 +1,5 @@
 #pragma once
-
+#include "crypto.h"
 #include <QDialog>
 #include "ui_Adminwin.h"
 #include <QStandardItemModel>
@@ -19,7 +19,6 @@ private slots:
 	void on_pushButton_add_clicked();
 	void on_pushButton_delete_clicked();
 	void on_pushButton_clicked();
-	void connected();
 	void ready_read();
 	void send_server(QString message);
 

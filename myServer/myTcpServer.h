@@ -1,5 +1,5 @@
 #pragma once
-
+#include "crypto.h"
 #include <QObject>
 #include <QDateTime>
 #include <QTcpServer>

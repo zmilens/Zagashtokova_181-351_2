@@ -262,7 +262,6 @@ public:
 
 
         retranslateUi(Adminwin);
-        QObject::connect(lineEdit_find, SIGNAL(textEdited(QString)), pushButton_find, SLOT(click()));
 
         QMetaObject::connectSlotsByName(Adminwin);
     } // setupUi
