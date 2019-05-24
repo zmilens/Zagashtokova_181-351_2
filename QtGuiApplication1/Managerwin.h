@@ -15,18 +15,21 @@ class Managerwin : public QDialog
 public:
 	Managerwin(QWidget *parent = Q_NULLPTR);
 	~Managerwin();
-	//void sendServer(QString com);
+	void take_socket(QTcpSocket *sock);
 private slots:
 	void on_pushButton_add_clicked();
 	void on_pushButton_delete_clicked();
+	void on_pushButton_2_clicked();
 	void on_pushButton_find_clicked();
 	void on_pushButton_clicked();
 	void ready_read();
 	void send_server(QString com);
+	void disconnected();
 private:
 	Ui::Managerwin ui;
 	QStandardItemModel *model;
 	QTcpSocket *socket;
 	QSqlTableModel *mod;
+	DataBase base;
 };
 

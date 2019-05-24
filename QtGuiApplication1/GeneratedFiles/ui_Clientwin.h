@@ -32,6 +32,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLineEdit *lineEdit_find;
     QPushButton *pushButton_find;
+    QPushButton *pushButton_2;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer;
     QPushButton *pushButton;
@@ -74,6 +75,17 @@ public:
 
         horizontalLayout->addWidget(pushButton_find);
 
+        pushButton_2 = new QPushButton(layoutWidget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        QFont font1;
+        font1.setFamily(QString::fromUtf8("Sitka Banner"));
+        font1.setPointSize(12);
+        font1.setBold(true);
+        font1.setWeight(75);
+        pushButton_2->setFont(font1);
+
+        horizontalLayout->addWidget(pushButton_2);
+
 
         gridLayout->addLayout(horizontalLayout, 1, 0, 1, 1);
 
@@ -99,7 +111,6 @@ public:
 
 
         retranslateUi(Clientwin);
-        QObject::connect(lineEdit_find, SIGNAL(textEdited(QString)), pushButton_find, SLOT(click()));
 
         QMetaObject::connectSlotsByName(Clientwin);
     } // setupUi
@@ -108,6 +119,7 @@ public:
     {
         Clientwin->setWindowTitle(QApplication::translate("Clientwin", "Clientwin", nullptr));
         pushButton_find->setText(QApplication::translate("Clientwin", "\320\235\320\260\320\271\321\202\320\270", nullptr));
+        pushButton_2->setText(QApplication::translate("Clientwin", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", nullptr));
         pushButton->setText(QApplication::translate("Clientwin", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
     } // retranslateUi
 

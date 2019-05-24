@@ -60,6 +60,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLineEdit *lineEdit_find;
     QPushButton *pushButton_find;
+    QPushButton *pushButton_2;
     QFrame *line_7;
     QHBoxLayout *horizontalLayout_6;
     QSpacerItem *horizontalSpacer;
@@ -255,6 +256,17 @@ public:
 
         horizontalLayout->addWidget(pushButton_find);
 
+        pushButton_2 = new QPushButton(layoutWidget);
+        pushButton_2->setObjectName(QString::fromUtf8("pushButton_2"));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Sitka Banner"));
+        font2.setPointSize(12);
+        font2.setBold(true);
+        font2.setWeight(75);
+        pushButton_2->setFont(font2);
+
+        horizontalLayout->addWidget(pushButton_2);
+
 
         formLayout->setLayout(3, QFormLayout::FieldRole, horizontalLayout);
 
@@ -287,7 +299,8 @@ public:
 
 
         retranslateUi(Managerwin);
-        QObject::connect(lineEdit_find, SIGNAL(textEdited(QString)), pushButton_find, SLOT(click()));
+        QObject::connect(pushButton, SIGNAL(clicked()), tableView, SLOT(resizeColumnsToContents()));
+        QObject::connect(pushButton, SIGNAL(clicked()), tableView, SLOT(resizeRowsToContents()));
 
         QMetaObject::connectSlotsByName(Managerwin);
     } // setupUi
@@ -302,6 +315,7 @@ public:
         pushButton_add->setText(QApplication::translate("Managerwin", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", nullptr));
         pushButton_delete->setText(QApplication::translate("Managerwin", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", nullptr));
         pushButton_find->setText(QApplication::translate("Managerwin", "\320\235\320\260\320\271\321\202\320\270", nullptr));
+        pushButton_2->setText(QApplication::translate("Managerwin", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", nullptr));
         pushButton->setText(QApplication::translate("Managerwin", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", nullptr));
     } // retranslateUi
 

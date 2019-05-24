@@ -252,6 +252,21 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="font">
+         <font>
+          <family>Sitka Banner</family>
+          <pointsize>12</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Очистить</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item row="4" column="1">
@@ -313,18 +328,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>lineEdit_find</sender>
-   <signal>textEdited(QString)</signal>
-   <receiver>pushButton_find</receiver>
-   <slot>click()</slot>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>tableView</receiver>
+   <slot>resizeColumnsToContents()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>186</x>
-     <y>312</y>
+     <x>217</x>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
-     <x>385</x>
-     <y>312</y>
+     <x>147</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>tableView</receiver>
+   <slot>resizeRowsToContents()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>217</x>
+     <y>345</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>147</x>
+     <y>156</y>
     </hint>
    </hints>
   </connection>

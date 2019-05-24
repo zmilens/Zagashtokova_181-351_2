@@ -1,5 +1,6 @@
 ﻿
 #include "myTcpServer.h"
+#include <qcryptographichash.h>
 #include "DataBase.h"
 #include <QDebug>
 
@@ -114,6 +115,8 @@ void myTcpServer::slotReadClient()
 		db.close();
 	}
 	else if (action == "Add_user:") {
+		crypto cryp;
+		QByteArray array, array2, ar;
 		QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
 		db.setDatabaseName("Logpas");
 		if (!db.open())
@@ -123,15 +126,22 @@ void myTcpServer::slotReadClient()
 		mess.erase(0, p + 1);
 		p = mess.find(" ");
 		QString password = QString::fromStdString(mess.substr(0, p));
+		array = password.toUtf8();
+		array2= QCryptographicHash::hash(array, QCryptographicHash::Md5);
+
+		//array2 = cryp.decrypt(array);
+		QString pass=QString::fromStdString(array2.toStdString());
 		mess.erase(0, p + 1);
 		p = mess.find(" ");
 		QString access = QString::fromStdString(mess);
 		QSqlQuery query(db);
 		query.prepare("INSERT INTO User(login, password, access) VALUES (:login, :password, :access)");
 		query.bindValue(":login", login);
-		query.bindValue(":password", password);
+		query.bindValue(":password", pass);
 		query.bindValue(":access", access);
 		query.exec();
+
+		//array = cryp.encrypt(arr);
 		db.close();
 	}
 	else if (action == "Delete_record:") {
@@ -176,6 +186,7 @@ void myTcpServer::slotReadClient()
 		query.prepare("DELETE FROM User WHERE login=:login");
 		query.bindValue(":login", login);
 		query.exec();
+		db.close();
 	}
 	else if (action == "Adminwin") {
 		std::string mess;
@@ -184,10 +195,14 @@ void myTcpServer::slotReadClient()
 		slotSendClient(QString::fromStdString(mess));
 	}
 	else if (action == "Database_loaded") {
+		QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+		db.setDatabaseName("Test");
 		std::string mess;
 		DataBase base;
 		base.download(mess);
 		slotSendClient(QString::fromStdString(mess));
+		db.close();
+
 	}
 }
 

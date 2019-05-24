@@ -241,11 +241,10 @@ void DataBase::finding(std::string find)
 {
 	std::string f;
 	for (int i = 0; i < db.size(); i++) {
-		if ((db[i].topic == find) || (db[i].author == find) || (db[i].article == find) || (db[i].magazine == find)) {
+		if (db[i].topic == find || db[i].author == find || db[i].article == find || db[i].magazine == find) {
 			f += db[i].topic + '\t' + db[i].author + '\t' + db[i].article + '\t' + db[i].magazine + '\n';
 		}
 	}
-
 	db.clear();
 	transformStr2BD(f);
 
@@ -255,7 +254,7 @@ void DataBase::findinglogpas(std::string finder)
 {
 	std::string f;
 	for (int i = 0; i < db1.size(); i++) {
-		if (db1[i].log == finder || db1[i].pass == finder || db1[i].access == finder) {
+		if (db1[i].log == finder || db1[i].access == finder) {
 			f += db1[i].log + '\t' + db1[i].pass + '\t' + db1[i].access + '\n';
 		}
 	}

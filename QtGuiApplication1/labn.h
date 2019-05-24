@@ -25,6 +25,9 @@ private:
 private slots:
 	void on_pushButton_autorize_clicked();
 	void connected();
+	void disconnected();
 	void ready_read();
 	void send_server(QString com);
+	//void take_socket();
+
 };

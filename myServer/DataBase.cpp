@@ -248,15 +248,14 @@ void DataBase::finding(std::string find)
 
 	db.clear();
 	transformStr2BD(f);
-	DataBase bd;
-	bd.download();
+
 }
 
 void DataBase::findinglogpas(std::string finder)
 {
 	std::string f;
 	for (int i = 0; i < db1.size(); i++) {
-		if ((db1[i].log == finder) || (db1[i].pass == finder) || (db1[i].access == finder)) {
+		if (db1[i].log == finder || db1[i].pass == finder || db1[i].access == finder) {
 			f += db1[i].log + '\t' + db1[i].pass + '\t' + db1[i].access + '\n';
 		}
 	}

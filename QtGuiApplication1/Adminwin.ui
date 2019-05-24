@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>316</height>
+    <width>439</width>
+    <height>325</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -210,6 +210,21 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_2">
+         <property name="font">
+          <font>
+           <family>Sitka Banner</family>
+           <pointsize>12</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Очистить</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </item>
      <item>
@@ -270,5 +285,22 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>tableView</receiver>
+   <slot>resizeRowsToContents()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>219</x>
+     <y>306</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>142</x>
+     <y>132</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
