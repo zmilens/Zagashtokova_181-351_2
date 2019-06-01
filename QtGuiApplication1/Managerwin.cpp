@@ -16,8 +16,7 @@ Managerwin::Managerwin(QWidget *parent)
 	ui.setupUi(this);
 
 	socket = new QTcpSocket;
-	//socket->connectToHost("127.0.0.1", 33333);
-	//connect(socket, SIGNAL(readyRead()), SLOT(ready_read()));
+
 }
 
 void Managerwin::on_pushButton_2_clicked() {
@@ -53,6 +52,7 @@ void Managerwin::on_pushButton_delete_clicked() {
 	QMessageBox ms;
 	ms.setText("The record is deleted from database");
 	send_server("Delete_record: " + top + " " + name + " " + arc + " " + mag);
+	ms.exec();
 }
 
 void Managerwin::on_pushButton_add_clicked() {
@@ -71,6 +71,7 @@ void Managerwin::on_pushButton_add_clicked() {
 	QMessageBox ms;
 	ms.setText("The record added to the database");
 	send_server("Add_record: " + top + " " + name + " " + arc + " " + mag);
+	ms.exec();
 }
 
 void Managerwin::on_pushButton_find_clicked() {

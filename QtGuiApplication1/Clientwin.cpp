@@ -13,10 +13,6 @@ Clientwin::Clientwin(QWidget *parent)
 	ui.setupUi(this);
 
 	socket = new QTcpSocket;
-	//socket->connectToHost("127.0.0.1", 33333);
-	//connect(socket, SIGNAL(readyRead()), SLOT(ready_read()));
-
-	//send_server("Database_loaded ");
 }
 
 void Clientwin::on_pushButton_2_clicked() {

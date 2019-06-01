@@ -14,25 +14,21 @@ labn::labn(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-	//manwin = new Managerwin();
-	//cliwin = new Clientwin();
-	//admwin = new Adminwin();
 
 	socket= new QTcpSocket;
 	socket->connectToHost("127.0.0.1", 33333);
-	connect(socket, &QTcpSocket::disconnected, this, &labn::connected);
+	connect(socket, &QTcpSocket::connected, this, &labn::connected);
+
+	connect(socket, &QTcpSocket::disconnected, this, &labn::disconnected);
 	connect(socket, &QTcpSocket::readyRead, this, &labn::ready_read);
 
-	connect(socket, SIGNAL(connected()), SLOT(connect()));
-	//connect(socket, SIGNAL(readyRead()), SLOT(ready_read()));
-	//connect(socket, SIGNAL(disconnected()), SLOT(disconnect()));
-
-
+	Clientwin* cli = new Clientwin;
+	connect(this, SIGNAL(clientOpen(socket)), cli, SLOT(take_socket(socket)));
+	//connect(socket, SIGNAL(connected()), SLOT(connect()));
 }
 
 void labn::on_pushButton_autorize_clicked()
 {
-	//disconnect(socket, &QTcpSocket::readyRead, this, &labn::ready_read);
 
 	manwin = new Managerwin();
 	cliwin = new Clientwin();
@@ -91,6 +87,7 @@ void labn::ready_read() {
 		}
 		else {
 			if (message == "User") {
+				emit clientOpen(socket);
 				cliwin->take_socket(socket);
 				msgBox.setText("User access");
 				cliwin->show();

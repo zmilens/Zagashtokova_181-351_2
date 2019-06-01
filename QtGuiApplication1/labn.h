@@ -22,6 +22,11 @@ private:
 	Managerwin *manwin;
 	Clientwin *cliwin;
 	Adminwin *admwin;
+
+signals:
+	void clientOpen(QTcpSocket* sock);
+
+
 private slots:
 	void on_pushButton_autorize_clicked();
 	void connected();
